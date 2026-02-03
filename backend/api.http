@@ -1,0 +1,19 @@
+POST http://localhost:9080/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "hari",
+    "password": "123456",
+    "email": "hari@email.com",
+    "name": "HarHari"
+}
+
+###
+
+Post http://localhost:9080/login HTTP/1.1
+Content-Type:  application/json
+
+{
+    "email": "hari@email.com",
+    "password": "123456"
+}
