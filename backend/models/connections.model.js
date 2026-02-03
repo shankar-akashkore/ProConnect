@@ -6,7 +6,7 @@ const connectionRequest = new mongoose.Schema({
         ref: "User"
     },
     connectionId: {
-        type: mongoose.Schema.type.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
     status_accepted: {
@@ -15,6 +15,9 @@ const connectionRequest = new mongoose.Schema({
     }
 });
 
-const ConntectionRequest = mongoose.model("ConntectionRequest",connectionRequest);
+const ConnectionRequest = mongoose.model("ConnectionRequest", connectionRequest);
+export default ConnectionRequest;
 
-export default ConntectionRequest;
+
+// const ConntectionRequest = mongoose.model("ConntectionRequest",connectionRequest);
+// export default ConntectionRequest;
