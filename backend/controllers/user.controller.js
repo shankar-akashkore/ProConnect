@@ -70,3 +70,23 @@ export const login = async (req,res) => {
         return res.status(500).json({message: "Something went wrong"})
     }
 }
+
+export const uploadProfilePicture = async (req, res) => {
+    const { token } = req.body;
+
+    try { 
+        const user = await User.findOne({ token });
+
+        if(!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        user.profilePicture = req.file.filename;
+
+        await user.save();
+
+        return res.json({ message: "Profile picture updated successfully" });
+        
+    } catch (error) {
+        return res.status(500).json({ message: "Something went wrong" });
+    }
+}
