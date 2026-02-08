@@ -13,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(postsRoutes);
 app.use(userRoutes);
+app.use(express.static("uploads"));
 
 const start = async () => {
     const connectDB = await mongoose.connect("mongodb+srv://shankarakashkore88_db_user:v4zPqUNlJm0aMuGJ@proconnect.qvvxyuu.mongodb.net");
