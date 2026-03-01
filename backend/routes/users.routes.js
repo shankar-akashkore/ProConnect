@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, register, uploadProfilePicture, updateUserProfile, getUserAndProfile, updateProfileData, getAllUserProfiles, downloadProfile} from "../controllers/user.controller.js";
+import { login, register, uploadProfilePicture, updateUserProfile, getUserAndProfile, updateProfileData, getAllUserProfiles, downloadProfile, sendConnectionRequest, getMyConnectionRequests, whatAreMyConnections, accpectConnectionRequest} from "../controllers/user.controller.js";
 import multer from "multer";
 // import { uploadProfilePicture } from "../controllers/profile.controller.js";
 
@@ -25,6 +25,10 @@ router.route('/user_update').post(updateUserProfile);
 router.route('/get_user_and_profile').get(getUserAndProfile);
 router.route('/update_profile_data').post(updateProfileData);
 router.route('/user/get_all_users').get(getAllUserProfiles); 
-router.route('/user/download_resume').get(downloadProfile)
+router.route('/user/download_resume').get(downloadProfile);
+router.route('/user/send_connection_request').post(sendConnectionRequest);
+router.route('/user/getMyConnectionRequests').get(getMyConnectionRequests);
+router.route('/user/user_connection_request').get(whatAreMyConnections);
+router.route('/user/accept_connection_request').post(accpectConnectionRequest);
 
 export default router;
