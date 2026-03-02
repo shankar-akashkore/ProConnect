@@ -19,7 +19,7 @@ const start = async () => {
     const connectDB = await mongoose.connect("mongodb+srv://shankarakashkore88_db_user:v4zPqUNlJm0aMuGJ@proconnect.qvvxyuu.mongodb.net");
 
     app.listen(9080, () => {
-        console.log("Server is running on 9080");
+        console.log("Server is running on 9090");
     })
 }
 
