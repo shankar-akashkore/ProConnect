@@ -15,21 +15,21 @@ export default function Home() {
   return (
     <>
       <div className={styles.container}>
-        <div className="mainContainer">
+        <div className={styles.mainContainer}>
 
-          <div className="mainContainer_left">
+          <div className={styles.mainContainer_left}>
             <p>Connect with Friends without Exaggeration</p>
             <p>A true Social Media platform, with stories no bluf!</p>
 
             <div onClick={() => {
               router.push("/login")
-            }}className="buttonJoin">
+            }}className={styles.buttonJoin}>
               <p>Join Now</p>
             </div>
           </div>
 
 
-          <div className="mainContainer_right">
+          <div className={styles.mainContainer_right}>
             <img src="images/home.png" />
           </div>
         </div>
