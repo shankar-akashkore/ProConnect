@@ -9,9 +9,9 @@ export default function NavbarComponent() {
     <div className={styles.container}>
       <nav className={styles.navBar}>
 
-        <h4 onClick={() => {
+        <h3 onClick={() => {
           router.push('/')
-        }}>ProConnect</h4>
+        }} style={{cursor: "pointer"}}>ProConnect</h3>
 
         <div className="navBarOptionContainer">
 
