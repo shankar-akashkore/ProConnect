@@ -1,8 +1,10 @@
 import UserLayout from '@/layout/UserLayout';
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux'
 import styles from "./style.module.css";
+import { useDispatch } from 'react-redux';
+import { registerUser } from '@/config/redux/action/authAction';
 
 
 function LoginComponent() {
@@ -10,12 +12,38 @@ function LoginComponent() {
   const authState = useSelector((state) => state.auth);
   const router = useRouter();
   const [userLoginMethod, setUserLoginMethod] = useState(false);
+  const dispatch = useDispatch();
   
+  const [username, setUserName] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmailAddress] = useState("");
+  const [password, setPassword] = useState("");
+
   useEffect(() => {
     if(authState.loggedIn) {
       router.push("/dashboard")
     }
-  })
+  }, [authState.loggedIn])
+
+  useEffect(() => {
+    if(authState.loggedIn) {
+      router.push("/dashboard")
+    }
+  },[])
+
+  useEffect(() => {
+    dispatch(emptyMessage())
+  },[userLoginMethod])
+
+  const handleRegister = () => {
+    console.log("HarHari");
+    dispatch(registerUser({ username, name, email, password }))
+  }
+
+  const handleLogin = () => {
+    console.log("Login Function is called");
+    dispatch(loginUser({ email, password }));
+  }
 
 
 
@@ -25,19 +53,27 @@ function LoginComponent() {
         <div className={styles.cardContainer}>
           
           <div className={styles.cardContainer_left}>
-
             <p className={styles.cardleft_heading}>{userLoginMethod ? "Sign In" : "Sign Up"}</p>
+            <p style={{color: authState.isError ? "red" : "green"}}>{authState.message.message}</p>
 
             <div className={styles.inputContainer}>
 
-              <div className={styles.inputRow}>
-                <input className={styles.inputFeild} type='text' placeholder='Username' />
-                <input className={styles.inputFeild} type='text' placeholder='Name' />
-              </div>
-              <input className={styles.inputFeild} type='text' placeholder='Email' />
-              <input className={styles.inputFeild} type='password' placeholder='Password' />
+              {!userLoginMethod && <div className={styles.inputRow}>
+                <input onChange={(e) => setUserName(e.target.value)} className={styles.inputFeild} type='text' placeholder='Username' />
+                <input onChange={(e) => setName(e.target.value)} className={styles.inputFeild} type='text' placeholder='Name' />
+              </div>}
 
-              <div className={styles.buttonWithOutline}>
+              <input onChange={(e) => setEmailAddress(e.target.value)} className={styles.inputFeild} type='text' placeholder='Email' />
+              <input onChange={(e) => setPassword(e.target.value)} className={styles.inputFeild} type='password' placeholder='Password' />
+
+              <div onClick={() => {
+                if(userLoginMethod) {
+                  handleLogin();
+                } else {
+                  handleRegister();
+                }
+              }}
+               className={styles.buttonWithOutline}>
                 <p>{userLoginMethod ? "Sign In" : "Sign Up"}</p>
               </div>
             </div>
@@ -45,7 +81,19 @@ function LoginComponent() {
           </div>
 
           <div className={styles.cardContainer_right}>
-
+            
+              {userLoginMethod ? <p>Don't Have an Account?</p> : <p>Already Have an Account?</p>}
+              <div onClick={() => {
+                if(userLoginMethod) {
+                  setUserLoginMethod(!userLoginMethod)
+                } else {
+                  handleRegister();
+                }
+              }}
+              style={{color: "black", backgroundColor: "white", textAlign: "center", marginTop: "0.8rem"}}
+               className={styles.buttonWithOutline}>
+                <p>{userLoginMethod ? "Sign Up" : "Sign In"}</p>
+              </div>
           </div>
 
         </div>
