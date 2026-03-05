@@ -1,6 +1,7 @@
 .container {
     font-family: "Poppins";
     padding: 1.2rem;
+    
 }
 
 .mainContainer {
@@ -21,6 +22,7 @@
 } 
 
 .mainContainer_left > p:nth-child(1) {
+    font-family: "Red Hat Display", sans-serif;
     font-size: 2.9rem;
     background: -webkit-linear-gradient( 45deg, #000000, #979797);
     background-clip: text;
@@ -28,6 +30,7 @@
 }
 
 .mainContainer_left > p:nth-child(2) {
+    font-family: "Red Hat Display", sans-serif;
     color: #4D4D4D;
     font-size: 1.7rem;
 }

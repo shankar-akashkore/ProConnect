@@ -1,8 +1,11 @@
+import UserLayout from '@/layout/UserLayout';
 import React from 'react'
 
 function LoginComponent() {
   return (
-    <div>LoginComponent</div>
+    <UserLayout>
+        <h1>LoggendIn</h1>
+    </UserLayout>
   )
 }
 
