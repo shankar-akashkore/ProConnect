@@ -27,48 +27,46 @@ const authSlice = createSlice({
         }
     },
 
-    extraReducer: (builder) => {
+    extraReducers: (builder) => {
 
         builder
-        .addCase(loginUser.pending, (state) => {
-            state.isLoading = true;
-            state.message = "knocking the door......"
-        })
+            .addCase(loginUser.pending, (state) => {
+                state.isLoading = true;
+                state.message = "knocking the door......"
+            })
 
-        .addCase(loginUser.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.isError = false;
-            state.isSuccess = true;
-            state.loggedIn = true;
-            state.message = "Login Successful"
-        })
+            .addCase(loginUser.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                state.loggedIn = true;
+                state.message = "Login Successful"
+            })
 
-        .addCase(loginUser.rejected, (state, action) => {
-            state.isLoading = false;
-            state.isError = true;
-            state.message = action.payload
-        })
+            .addCase(loginUser.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload?.message || "Something went wrong";
+            })
 
-        .addCase(registerUser.pending, (state) => {
-            state.isLoading = true;
-            state.message = "Registering you.........."
-        })
+            .addCase(registerUser.pending, (state) => {
+                state.isLoading = true;
+                state.message = "Registering you.........."
+            })
 
-        .addCase(registerUser.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.isError = false;
-            state.isSuccess = true;
-            state.loggedIn = true;
-            state.message = {
-                message: "Registration is Successful, Please Login to continue"
-            }
-        })
+            .addCase(registerUser.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                state.loggedIn = true;
+                state.message = "Registration is Successful, Please Login to continue";
+            })
 
-        .addCase(registerUser.rejected, (state, action) => {
-            state.isLoading = false;
-            state.isError = true;
-            state.message = action.payload
-        })
+            .addCase(registerUser.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload?.message || "Something went wrong";
+            })
     }
 
 })
