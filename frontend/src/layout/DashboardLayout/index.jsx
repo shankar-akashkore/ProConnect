@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { setTokenThere } from '@/config/redux/reducer/authReducer';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
 
 
 function DashboardLayout({ children }) {
@@ -11,6 +13,8 @@ function DashboardLayout({ children }) {
   const router = useRouter();
 
   const dispatch = useDispatch();
+
+  const authState = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (localStorage.getItem('token') === null) {
@@ -62,6 +66,14 @@ function DashboardLayout({ children }) {
 
         <div className="homeContainer_extraContainer">
           <h3>Top Profile</h3>
+
+          {authState.all_profiles_fetched && authState.all_users.map((profile) => {
+            return (
+              <div key={profile._id} className={styles.extraContainer_profile}>
+                <p>{profile.userId.name}</p>
+              </div>
+            )
+          })}
         </div>
 
         </div>

@@ -33,4 +33,5 @@
 }
 .sideBarOption > svg {
     height: 1.4em;
+    min-width: fit-content;
 }

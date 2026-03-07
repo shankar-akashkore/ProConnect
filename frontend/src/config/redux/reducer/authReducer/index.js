@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAboutUser, loginUser, registerUser } from "../../action/authAction";
+import { getAboutUser, loginUser, registerUser, getAllUsers } from "../../action/authAction";
+import { all } from "axios";
 
 
 const initialState = {
-    user: [],
+    user: undefined,
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -13,6 +14,8 @@ const initialState = {
     profileFetched: false,
     connections: [],
     connectionRequest: [],
+    all_users: [],
+    all_profiles_fetched: false
 }
 
 const authSlice = createSlice({
@@ -74,11 +77,19 @@ const authSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload?.message || "Something went wrong";
             })
+
             .addCase(getAboutUser.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isError = false;
                 state.profileFetched = true;
                 state.user = action.payload?.profile
+            })
+
+            .addCase(getAllUsers.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.all_profiles_fetched = true;
+                state.all_users = action.payload.profiles
             })
     }
 
