@@ -54,6 +54,9 @@ export const getAllPosts = async(req, res) => {
 
 
 export const deletePost = async (req,res) => {
+
+    const { token, post_id } = req.body;
+    
     try{
 
         const user = await User.findOne({ token: token}).select("_id");
@@ -72,7 +75,7 @@ export const deletePost = async (req,res) => {
             return res.status(401).json({ message: "unauthorized" })
         }
 
-        await Post.deletePost({ _id: post_id });
+        await Post.deleteOne({ _id: post_id });
 
         return res.json({ message: "Post Deleted" });
 
