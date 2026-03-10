@@ -20,6 +20,8 @@ export default function Dashboard() {
 
   const authState = useSelector((state) => state.auth);
 
+  const postState = useSelector((state) => state.post);
+
   
 
   useEffect(() => {
@@ -51,6 +53,7 @@ export default function Dashboard() {
       <DashboardLayout>
         <div className={styles.scrollComponnt}>
 
+          <div className={styles.wrapper}>
           <div className={styles.createPostContainer}>
             <img className={styles.userProfile} src={`${BASE_URL}/${authState?.user?.userId?.profilePicture}`} alt=''/>
 
@@ -64,11 +67,29 @@ export default function Dashboard() {
               </div>
             </label>
 
-            <input onChange={(e) => setFileContent(e.target.value)} type='file' hidden id='fileUpload' />
+            <input onChange={(e) => setFileContent(e.target.files[0])} type='file' hidden id='fileUpload' />
             {postContent.length > 0 &&
             <div onClick={handleUpload} className={styles.uploadButton}>
             Post
-            </div>}
+            </div>
+            }
+          </div>
+
+          <div className={styles.postContainer}>
+            {postState.posts.map((post) => {
+              return (
+              <div key={post._id} className={styles.singleCard}>
+
+                <div className={styles.singleCard_profile}>
+                  <img className={styles.singleCard_profile_img} src={`${BASE_URL}/${post?.userId?.profilePicture}`} alt=''/> <br></br>
+                  <span>{post?.userId?.name}</span>
+
+                </div>
+                
+            </div>
+            );
+            })}
+          </div>
           </div>
 
         </div>
