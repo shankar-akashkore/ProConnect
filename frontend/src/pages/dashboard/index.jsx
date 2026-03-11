@@ -3,13 +3,14 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { createPost, deletePost, getAllPosts, incrementPostLike } from '@/config/redux/action/postAction';
+import { createPost, deletePost, getAllComments, getAllPosts, incrementPostLike } from '@/config/redux/action/postAction';
 import { getAboutUser, getAllUsers } from '@/config/redux/action/authAction';
 import { useSelector } from 'react-redux';
 import UserLayout from '@/layout/UserLayout';
 import DashboardLayout from '@/layout/DashboardLayout';
 import styles from "./index.module.css";
 import { BASE_URL } from '@/config';
+import { resetPostId } from '@/config/redux/reducer/postReducer';
 
 
 export default function Dashboard() {
@@ -109,8 +110,9 @@ export default function Dashboard() {
                     </div>
 
                     <div className={styles.optionsContainer}>
+
                       <div onClick={async () => {
-                        await dispatch(incrementPostLike({ post_id: post.post_id }));
+                        await dispatch(incrementPostLike({ post_id: post._id }));
                         dispatch(getAllPosts());
                       }}
                       className={styles.singleOption_optionContainer}>
@@ -120,7 +122,10 @@ export default function Dashboard() {
                         <p>{post?.likes}</p>
                       </div>
 
-                      <div className={styles.singleOption_optionContainer}>
+                      <div onClick={() => {
+                        dispatch(getAllComments({ post_id: post._id }));
+                      }}
+                      className={styles.singleOption_optionContainer}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
                         </svg>
@@ -150,6 +155,21 @@ export default function Dashboard() {
           </div>
 
         </div>
+
+        {
+          postState.postId !== "" && 
+          <div onClick={() => {
+            dispatch(resetPostId());
+          }} className={styles.commentsContainer}>
+
+            <div onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className={styles.allCommentsContainer}>
+              {postState.comments.length === 0 && <h3>No Comments</h3>}
+            </div>
+          </div>
+        }
       </DashboardLayout>
       
 
