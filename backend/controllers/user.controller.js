@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import PDFDocument from 'pdfkit';
 import fs from 'fs';
+import Comment from '../models/comments.model.js';
 // import { Connection } from 'mongoose';
 
 const convertUserDataTOPDF = async (userData) => {
@@ -374,7 +375,7 @@ export const commentPost = async (req, res) => {
         const comment = new Comment({
             userId: user._id,
             postId: post_id,
-            comment: commentBody
+            body: commentBody
         })
 
         await comment.save();

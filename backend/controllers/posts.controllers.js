@@ -2,6 +2,7 @@ import User from '../models/user.model.js';
 import Post from '../models/posts.models.js';
 import Profile from '../models/profile.model.js';
 import { commentPost } from './user.controller.js';
+import Comment from '../models/comments.model.js';
 
 
 
@@ -97,7 +98,11 @@ export const get_comments_by_post = async (req, res) => {
             return res.status(404).json({ message: "Post not found" })
         }
 
-        return res.json({ comments: post.comments })
+        const comments = await Comment
+        .find({ postId: post_id })
+        .populate("userId", "username name");
+
+        return res.json(comments.reverse());
 
     } catch(error) {
         return res.status(500).json({ message: error.message })

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { createPost, deletePost, getAllComments, getAllPosts, incrementPostLike } from '@/config/redux/action/postAction';
+import { createPost, deletePost, getAllComments, getAllPosts, incrementPostLike, postComment } from '@/config/redux/action/postAction';
 import { getAboutUser, getAllUsers } from '@/config/redux/action/authAction';
 import { useSelector } from 'react-redux';
 import UserLayout from '@/layout/UserLayout';
@@ -22,7 +22,6 @@ export default function Dashboard() {
   const authState = useSelector((state) => state.auth);
 
   const postState = useSelector((state) => state.post);
-
   
 
   useEffect(() => {
@@ -39,6 +38,8 @@ export default function Dashboard() {
   const [postContent, setPostContent] = useState("");
 
   const [fileContent, setFileContent] = useState();
+
+  const [commentText, setCommentText] = useState("");
 
   const handleUpload = async () => {
     await dispatch(createPost({file: fileContent, body: postContent}));
@@ -167,6 +168,39 @@ export default function Dashboard() {
             }}
             className={styles.allCommentsContainer}>
               {postState.comments.length === 0 && <h3>No Comments</h3>}
+
+              {postState.comments.length !== 0 && 
+              <div>
+                {postState.comments.map((comment, index) => {
+                  return (
+                    <div className={styles.singleComment} key={comment._id}>
+                      <div className={styles.singleComment_profileContainer}>
+                        <img src={`${BASE_URL}/${comment?.userId?.profilePicture}`} alt=''/>
+                        <div>
+                          <p style={{ fontWeight: 550, fontSize: "1.2rem"}}>{comment.userId.name}</p>
+                          <p style={{fontWeight: 100, fontSize: "0.9rem"}}>@{comment.userId.username}</p>
+                        </div>
+                      </div>
+                      <p>{comment.body}</p>
+                      
+                    </div>
+                  )
+                })}
+              </div>
+              }
+
+              <div className={styles.postCommentContainer}>
+                <input type='' value={commentText} onChange={(e) => 
+                  setCommentText(e.target.value)} placeholder="Comment......" />
+
+                <div onClick={async () => {
+                  await dispatch(postComment({ post_id: postState.postId, body: commentText }))
+                  await dispatch(getAllComments({ post_id: postState.postId}))
+                }} className={styles.postCommnetContainer_commentBtn}>
+                  <p>Comment</p>
+                </div>
+
+              </div>
             </div>
           </div>
         }
