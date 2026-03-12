@@ -4,6 +4,8 @@ import DashboardLayout from '@/layout/DashboardLayout';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getAllUsers } from '@/config/redux/action/authAction';
+import styles from "./index.module.css";
+import { BASE_URL } from '@/config';
 
 export default function DiscoverPage() {
 
@@ -22,6 +24,20 @@ export default function DiscoverPage() {
 
       <DashboardLayout>
         <h1>Discover Page</h1>
+
+        <div className={styles.allUserProfile}>
+          {authState.all_profiles_fetched && authState.all_users.map((user) => {
+            return (
+              <div key={user._id} className={styles.userCard}>
+                <img className={styles.userCard_image} src={`${BASE_URL}/${user.userId.profilePicture}`} alt='' />
+                <div>
+                  <h3>{user.userId.name}</h3>
+                  <p>{user.userId.username}</p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
       </DashboardLayout>
       
 
