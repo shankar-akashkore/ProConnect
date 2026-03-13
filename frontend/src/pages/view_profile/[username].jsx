@@ -1,12 +1,38 @@
 import React, { use } from 'react'
 import { useSearchParams } from 'next/navigation';
-import { clientServer } from '@/config';
+import { BASE_URL, clientServer } from '@/config';
+import UserLayout from '@/layout/UserLayout';
+import DashboardLayout from '@/layout/DashboardLayout';
+import styles from './index.module.css';
 
 export default function ViewProfile({userProfile}) {
 
     const searchParams = useSearchParams();
   return (
-    <div>{userProfile.userId.name}</div>
+    <UserLayout>
+      <DashboardLayout>
+        <div className={styles.container}>
+          <div className={styles.backDropContainer}>
+            <img className={styles.backDrop} src={`${BASE_URL}/${userProfile.userId.profilePicture}`}/>
+          </div>
+
+          <div className={styles.profileContainer_details}>
+            <div style={{ display: "flex", gap: "0.7rem"}}>
+              <div style={{flex: "0.8"}}>
+                <div style={{ display: "flex", width: "fit-content", alignItems: "center"}}>
+
+                </div>
+              </div>
+              <div style={{flex: "0.2"}}>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </DashboardLayout>
+    </UserLayout>
   )
 }
 

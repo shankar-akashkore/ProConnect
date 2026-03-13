@@ -15,6 +15,7 @@
     flex-direction: column;
     gap: 0.9rem;
     align-items: flex-start;
+    border-right: 1px solid rgb(233, 238, 242);
 }
 
 .sideBarOption {
@@ -28,10 +29,21 @@
     cursor: pointer;
     transition: all 0.2s;
 }
+
 .sideBarOption:hover {
     transform: scale(1.03);
 }
+
 .sideBarOption > svg {
     height: 1.4em;
     min-width: fit-content;
+}
+
+.homeContainer_extraContainer {
+    border-left: 1px solid rgb(233, 238, 242);
+    padding-left: 1.2rem;
+}
+
+.homeContainer_feedContainer {
+    padding-inline: 0.8rem;
 }
