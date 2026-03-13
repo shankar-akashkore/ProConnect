@@ -22,7 +22,46 @@
     bottom: -30%;
     left: 6%;
     text-align: center;
+}
 
+.profileContainer_details {
+    padding-top: 6.6rem;
+}
 
+.card {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+}
 
+.card_profileContainer {
+    display: flex;
+}
+
+.card_profileContainer>img {
+    width: 3.4rem;
+    height: auto;
+    height: 3.4rem;
+    object-fit: cover;
+}
+
+.connectBtn {
+    padding-inline: 0.8rem;
+    padding-block: 0.3rem;
+    background-color: rgba(107, 107, 238, 0.585);
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.connectedButton {
+    padding-inline: 0.8rem;
+    padding-block: 0.3rem;
+    border: 1px solid rgba(107, 107, 238, 0.585);
+    outline: none;
+    color: rgba(107, 107, 238, 0.585);
+    border-radius: 10px;
+    cursor: pointer;
 }
