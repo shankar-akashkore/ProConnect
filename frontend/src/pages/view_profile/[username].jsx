@@ -8,7 +8,8 @@ import { getAllPosts } from '@/config/redux/action/postAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { getConnectionsRequest } from '@/config/redux/action/authAction';
+import { getMyConnectionRequests, sendConnectionRequest } from '@/config/redux/action/authAction';
+
 
 
 
@@ -19,6 +20,7 @@ export default function ViewProfile({userProfile}) {
     const router = useRouter();
     // const postReducer = useSelector((state) => state.postReducer);
     const postReducer = useSelector((state) => state.post);
+
     const dispatch = useDispatch();
 
     const authState = useSelector((state) => state.auth);
@@ -27,9 +29,11 @@ export default function ViewProfile({userProfile}) {
 
     const [isCurrentUserInConnections, setIsCurrentUserInConnections] = useState(false);
 
+    const [isConnectionNull, setIsConnectionNull] = useState(true);
+
     const getUsersPost = async () => {
       await dispatch(getAllPosts());
-      await dispatch(getConnectionsRequest({token: localStorage.getItem("token")}));
+      await dispatch(getMyConnectionRequests({token: localStorage.getItem("token")}));
     }
 
     useEffect(() => {
@@ -40,12 +44,31 @@ export default function ViewProfile({userProfile}) {
     }, [postReducer.posts])
 
 
+    // useEffect(() => {
+    //   console.log(authState.connections, userProfile.userId._id);
+    //   if(authState.connections.some(user => user.connectionId._id === userProfile.userId._id)) {
+    //     setIsCurrentUserInConnections(true);
+    //     if(authState.connections.find(user => user.connectionId._id === userProfile.userId._id).status_accepted === true) {
+    //       setIsConnectionNull(false);
+    //     }
+    //   }
+    // },[authState.connections])
     useEffect(() => {
-      console.log(authState.connections, userProfile.userId._id);
-      if(authState.connections.some(user => user.connections._id === userProfile.userId._id)) {
+      console.log(authState.connectionRequest, userProfile.userId._id);
+    
+      if(authState.connectionRequest?.some(
+          user => user.connectionId._id === userProfile.userId._id
+      )) {
         setIsCurrentUserInConnections(true);
+    
+        if(authState.connectionRequest.find(
+            user => user.connectionId._id === userProfile.userId._id
+        ).status_accepted === true) {
+          setIsConnectionNull(false);
+        }
       }
-    },[authState.connections])
+    
+    }, [authState.connectionRequest]);
 
 
     useEffect(() => {
@@ -73,10 +96,10 @@ export default function ViewProfile({userProfile}) {
                 </div>
 
                 {isCurrentUserInConnections ? 
-                <button className={styles.connectedButton}>Connected</button>
+                <button className={styles.connectedButton}>{isConnectionNull ? "Pending" : "Connected"}</button>
                 :
                 <button onClick={() => {
-                  dispatch(getConnectionsRequest({token: localStorage.getItem("token"), userId: userProfile.userId._id}));
+                  dispatch(sendConnectionRequest({token: localStorage.getItem("token"), user_id: userProfile.userId._id}));
                 }}
                 className={styles.connectBtn}>Connect</button>
                 }

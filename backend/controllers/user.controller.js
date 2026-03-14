@@ -267,6 +267,10 @@ export const sendConnectionRequest = async (req, res) => {
 
         await request.save();
 
+        return res.status(200).json({
+            message: "Connection request sent"
+        });
+
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
@@ -275,7 +279,7 @@ export const sendConnectionRequest = async (req, res) => {
 
 
 export const getMyConnectionRequests = async (req, res) => {
-    const { token } = req.body;
+    const { token } = req.query;
 
     try {
 
@@ -298,7 +302,7 @@ export const getMyConnectionRequests = async (req, res) => {
 
 export const whatAreMyConnections = async (req, res) => {
 
-    const { token } = req.body;
+    const { token } = req.query;
 
     try {
 
