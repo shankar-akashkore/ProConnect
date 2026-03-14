@@ -145,7 +145,7 @@ export const getConnectionsRequest = createAsyncThunk(
                 }
             })
 
-            return thunkAPI.fulfillWithValue(response.data.connections);
+            return thunkAPI.fulfillWithValue(response.data.connection);
 
         } catch(error) {
             return thunkAPI.rejectWithValue(error.response?.data.message);
@@ -165,7 +165,7 @@ export const getMyConnectionRequests = createAsyncThunk(
                 }
             })
 
-            return thunkAPI.fulfillWithValue(response.data.connection);
+            return thunkAPI.fulfillWithValue(response.data);
 
         } catch(error) {
             return thunkAPI.rejectWithValue(error.response?.data.message);
