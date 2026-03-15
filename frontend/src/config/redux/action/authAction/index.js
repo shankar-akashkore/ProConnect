@@ -165,7 +165,7 @@ export const getMyConnectionRequests = createAsyncThunk(
                 }
             })
 
-            return thunkAPI.fulfillWithValue(response.data);
+            return thunkAPI.fulfillWithValue(response.data.c);
 
         } catch(error) {
             return thunkAPI.rejectWithValue(error.response?.data.message);
