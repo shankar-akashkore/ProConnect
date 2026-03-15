@@ -19,3 +19,13 @@
     padding-bottom: 1.5rem;
     cursor: pointer;
 }
+
+.connectedButton {
+    padding-inline: 0.8rem;
+    padding-block: 1.3rem;
+    border: 1px solid royalblue;
+    outline: none;
+    color: royalblue;
+    border-radius: 10px;
+    cursor: pointer;
+}

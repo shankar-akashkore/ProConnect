@@ -181,9 +181,12 @@ export const AcceptConnection = createAsyncThunk(
 
             const response = await clientServer.post("/user/accept_connection_request" , {
                 token: user.token,
-                connection_id: user.connectionId,
+                requestId: user.connectionId,
                 action_type: user.action
             });
+
+            thunkAPI.dispatch(getConnectionsRequest({ token: user.token }));
+            thunkAPI.dispatch(getMyConnectionRequests({ token: user.token }));
 
             return thunkAPI.fulfillWithValue(response.data);
 
