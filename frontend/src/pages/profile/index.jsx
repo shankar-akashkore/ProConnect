@@ -2,7 +2,7 @@ import DashboardLayout from '@/layout/DashboardLayout'
 import UserLayout from '@/layout/UserLayout'
 import React, { use } from 'react'
 import styles from './index.module.css';
-import { BASE_URL } from '@/config';
+import { BASE_URL, clientServer } from '@/config';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -42,6 +42,21 @@ export default function profile() {
     }, [authState.user, postReducer.posts])
 
 
+    const updateProfilePicture = async (file) => {
+      const formData = new FormData();
+      formData.append("profile_picture", file);
+      formData.append("token", localStorage.getItem("token"));
+
+      const response = await clientServer.post("/update_profile_picture", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      dispatch(getAboutUser({ token: localStorage.getItem("token") }));
+    }
+    
+
+
   return (
     <UserLayout>
         <DashboardLayout>
@@ -53,7 +68,9 @@ export default function profile() {
                         Edit
                     </p>
                 </label>
-                <input type='file' id='profilePictureUpload'/>
+                <input onChange={(e) => {
+                  updateProfilePicture(e.target.files[0])
+                }} hidden type='file' id='profilePictureUpload'/>
                 <img src={`${BASE_URL}/${userProfile.userId.profilePicture}`} />
           </div>
 
@@ -61,7 +78,9 @@ export default function profile() {
             <div style={{ display: "flex", gap: "0.7rem" }}>
               <div style={{ flex: "0.8" }}>
                 <div style={{ display: "flex", width: "fit-content", alignItems: "center", gap: "1.2rem" }}>
-                  <h2>{userProfile.userId.name}</h2>
+                  <input className={styles.nameEdit} type='text' value={userProfile.userId.name} onChange={(e) => {
+                    setProfilePage({...userProfile, userId: {...profile.userId, name: e.target.value}})
+                  }} />
                   <p style={{ color: "grey" }}>@{userProfile.userId.username}</p>
 
                 </div>
