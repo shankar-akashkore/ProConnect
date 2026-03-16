@@ -109,3 +109,46 @@
     border-radius: 10px;
     box-shadow: 5px 5px 10px rgba(173, 173, 173);
 }
+
+.profileContainer_details input {
+    outline: none;
+    border-style: none;
+    padding-inline: 10px;
+    padding-block: 9px;
+    width: fit-content;
+}
+
+.nameEdit {
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.connectionBtn {
+    padding-inline: 0.8rem;
+    padding-block: 0.3rem;
+    background-color: rgba(107, 107, 238, 0.585);
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.profileContainer_details textarea {
+    outline: none;
+    border: none;
+    padding-inline: 10px;
+    padding-block: 9px;
+    font-family: "Poppins", sans-serif !important;
+    font-size: 1.1rem;
+}
+
+.addWorkButton {
+    padding-inline: 1.3rem;
+    background: white;
+    border: 1px solid silver;
+    border-radius: 10px;
+    padding-block: 0.6rem;
+    cursor: pointer;
+}

@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getAboutUser } from '@/config/redux/action/authAction';
 import { getAllPosts } from '@/config/redux/action/postAction';
+import { current } from '@reduxjs/toolkit';
 
 export default function profile() {
 
@@ -22,7 +23,6 @@ export default function profile() {
     const [userPost, setUserPost] = useState([]);
 
     const dispatch = useDispatch();
-
 
     useEffect(() => {
         dispatch(getAboutUser({ token: localStorage.getItem("token") }))
@@ -56,6 +56,23 @@ export default function profile() {
     }
     
 
+    const updateProfileData = async() => {
+      const request = await clientServer.post("/user_update", {
+        token: localStorage.getItem("token"),
+        name: userProfile.userId.name,
+      });
+
+      const response = await clientServer.post("/update_profile_data", {
+        token: localStorage.getItem("token"),
+        bio: userProfile.bio,
+        currentPost: userProfile.currentPost,
+        postWork: userProfile.postWork,
+        education: userProfile.education
+      });
+
+      dispatch(getAboutUser({ token: localStorage.getItem("token") }));
+    }
+
 
   return (
     <UserLayout>
@@ -78,15 +95,25 @@ export default function profile() {
             <div style={{ display: "flex", gap: "0.7rem" }}>
               <div style={{ flex: "0.8" }}>
                 <div style={{ display: "flex", width: "fit-content", alignItems: "center", gap: "1.2rem" }}>
-                  <input className={styles.nameEdit} type='text' value={userProfile.userId.name} onChange={(e) => {
-                    setProfilePage({...userProfile, userId: {...profile.userId, name: e.target.value}})
+                  <input className={styles.nameEdit} 
+                        type='text' 
+                        value={userProfile.userId.name} 
+                        onChange={(e) => {
+                        setUserProfile({...userProfile, userId: {...userProfile.userId, name: e.target.value}})
                   }} />
                   <p style={{ color: "grey" }}>@{userProfile.userId.username}</p>
 
                 </div>
 
                 <div>
-                  <p>{userProfile.bio}</p>
+                  <textarea
+                        value={userProfile.bio}
+                        onChange={(e) => {
+                          setUserProfile({ ...userProfile, bio: e.target.value});
+                        }}
+                        rows={Math.max(3, Math.ceil(userProfile.bio.length / 80))}
+                        style={{ width: "100%" }}
+                  />
                 </div>
 
 
@@ -130,8 +157,20 @@ export default function profile() {
                 })
               }
 
+              <button className={styles.addWorkButton} onClick={() => {
+
+              }}>
+                Add Work
+              </button>
+
             </div>
           </div>
+
+          {userProfile != authState.user && 
+              <div onClick={() => {
+                updateProfileData();
+              }} className={styles.connectionBtn}>Update Profile
+                </div>}
 
 
         </div>
