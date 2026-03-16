@@ -22,6 +22,15 @@ export default function profile() {
 
     const [userPost, setUserPost] = useState([]);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [inputData, setInputData] = useState({ company: '', position: '', years: ''});
+
+    const handleworkInputChange = (e) => {
+      const { name, value } = e.target;
+      setInputData({ ...inputData, [name]: value });
+    }
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -158,10 +167,8 @@ export default function profile() {
               }
 
               <button className={styles.addWorkButton} onClick={() => {
-
-              }}>
-                Add Work
-              </button>
+                setIsModalOpen(true)
+              }}>Add Work</button>
 
             </div>
           </div>
@@ -169,12 +176,34 @@ export default function profile() {
           {userProfile != authState.user && 
               <div onClick={() => {
                 updateProfileData();
-              }} className={styles.connectionBtn}>Update Profile
+              }} className={styles.updateProfileBtn}>Update Profile
                 </div>}
-
-
         </div>
         }
+
+          {isModalOpen && 
+          <div onClick={() => {
+            setIsModalOpen(false);
+          }} className={styles.commentsContainer}>
+
+            <div onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className={styles.allCommentsContainer}>
+            <input onChange={handleworkInputChange} name='company'  className={styles.inputFeild} type='text' placeholder='Enter the Company' />
+            <input onChange={handleworkInputChange} name='position'  className={styles.inputFeild} type='text' placeholder='Enter the position' />
+            <input onChange={handleworkInputChange} name='years'  className={styles.inputFeild} type='number' placeholder='Years' />
+
+            <div onClick={() => {
+              setUserProfile({ ...userProfile, postWork: [...userProfile.postWork, inputData]})
+              setIsModalOpen(false);
+            }}
+            className={styles.updateProfileBtn }>Add Work</div>
+            </div>
+          </div>
+        }
+
+
         </DashboardLayout>
     </UserLayout>
   )
