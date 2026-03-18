@@ -1,5 +1,6 @@
 .homeContainer {
     display: flex;
+    padding-top: 4.5rem;
 }
 
 .homeContainer > div:nth-child(odd) {
