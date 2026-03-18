@@ -5,10 +5,11 @@
     width: 100%;
     z-index: 1000;
     padding: 1rem 2rem;
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.18); */
+    border-bottom: 1px solid rgba(69, 140, 206, 0.12); 
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -92,4 +93,9 @@
 .buttonJoin:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(69, 140, 206, 0.4);
+}
+
+.navSpacer {
+    height: 72px;
+    width: 100%;
 }
