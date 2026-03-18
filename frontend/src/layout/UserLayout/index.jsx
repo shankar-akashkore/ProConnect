@@ -1,11 +1,13 @@
+import FooterComponent from '@/components/FooterComponent';
 import NavbarComponent from '@/components/NavbarComponent';
 import React from 'react'
 
 function UserLayout({ children }) {
   return (
-    <div>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <NavbarComponent />
-        {children}
+        <div style={{ flex: 1 }}>{children}</div>
+      <FooterComponent />
     </div>
   )
 }
