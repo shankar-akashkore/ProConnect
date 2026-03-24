@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styles from './InsightsGrid.module.css';
 
 const cards = [
@@ -9,7 +10,7 @@ const cards = [
   {
     front: "Your profile is your first impression",
     back: "A sharp headline and honest summary do more than a long list of titles ever could.",
-    dark: true,
+    dark: false,
   },
   {
     front: "Tailor, don't blast",
@@ -39,7 +40,7 @@ const cards = [
   {
     front: "Stories land better than facts",
     back: "Interviewers remember how you made them feel — lead with a real story, not a bullet point list.",
-    dark: true,
+    dark: false,
   },
   {
     front: "Price for the value, not the hours",
@@ -54,13 +55,30 @@ const cards = [
 ];
 
 export default function InsightsGrid() {
+  const [activeCard, setActiveCard] = useState(null);
+
   return (
     <div className={styles.section}>
       <div className={styles.grid}>
         {cards.map((card, i) => (
           <div
             key={i}
-            className={`${styles.flipWrap} ${card.dark ? styles.dark : styles.light}`}
+            className={`${styles.flipWrap} ${card.dark ? styles.dark : styles.light} ${
+              activeCard === i ? styles.active : ''
+            }`}
+            onMouseEnter={() => setActiveCard(i)}
+            onMouseLeave={() => {
+              if (activeCard === i) {
+                setActiveCard(null);
+              }
+            }}
+            onFocus={() => setActiveCard(i)}
+            onBlur={() => {
+              if (activeCard === i) {
+                setActiveCard(null);
+              }
+            }}
+            tabIndex={0}
           >
             <div className={styles.flipInner}>
               <div className={styles.front}>{card.front}</div>
