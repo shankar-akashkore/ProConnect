@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import UserLayout from "@/layout/UserLayout";
 import styles from "@/styles/Home.module.css";
 import { useEffect, useState } from "react";
+import InsightsGrid from "@/components/HomeComponent/InsightsGrid";
 
 const FULL_TEXT = "Connect with Friends\nwithout Exaggeration";
 
@@ -100,9 +101,14 @@ export default function Home() {
               Learn more
             </button>
           </div>
+        </div>
 
+        <div className={styles.box}>
+            <InsightsGrid />
         </div>
       </div>
+
+
     </UserLayout>
   );
 }

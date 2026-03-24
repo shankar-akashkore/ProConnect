@@ -157,6 +157,10 @@
   .btnSecondary:hover {
     background: #e0e0e0;
   }
+
+  .box {
+    padding: 22px;
+  }
   
   /* ── RESPONSIVE ─────────────────────────────────────────────── */
   @media (max-width: 600px) {
