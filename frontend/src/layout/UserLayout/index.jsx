@@ -24,9 +24,9 @@ import React from 'react'
 function UserLayout({ children }) {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <NavbarComponent />
+      {/* <NavbarComponent /> */}
         <div style={{ flex: 1, paddingTop: '72px' }}>{children}</div>
-      <FooterComponent />
+      {/* <FooterComponent /> */}
     </div>
   )
 }

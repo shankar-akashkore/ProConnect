@@ -93,15 +93,15 @@
   }
   
   .sidebarTitle {
-    font-size: 20px;
+    font-size: 35px;
     font-weight: 500;
     color: #3a1040;
     /* margin: 0 0 12px; */
   }
   
   .sidebarText {
-    font-size: 13px;
-    color: #5a3060;
+    font-size: 16px;
+    color: black;
     line-height: 1.7;
     margin: 0;
   }
