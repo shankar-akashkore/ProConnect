@@ -149,6 +149,10 @@ export const updateUserProfile = async (req, res) => {
             }
         }
 
+        // if (req.file) {
+        //     newUserData.profilePicture = req.file.filename;
+        //   }
+
         Object.assign(user, newUserData);
         await user.save();
         return res.json({ message: "User Updated Successfully" });

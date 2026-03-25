@@ -65,7 +65,7 @@ function DashboardLayout({ children }) {
         </div>
 
         <div className={styles.homeContainer_extraContainer}>
-          <h3>Top Profile</h3>
+          {/* <h3>Top Profile</h3>
 
           {authState.all_profiles_fetched && authState.all_users.map((profile) => {
             return (
@@ -73,7 +73,46 @@ function DashboardLayout({ children }) {
                 <p>{profile.userId.name}</p>
               </div>
             )
-          })}
+          })} */}
+           <h3 className={styles.topProfileHeading}>Top Profiles</h3>
+
+{authState.all_profiles_fetched && authState.all_users.map((profile) => (
+  <div key={profile._id} className={styles.extraContainer_profile}
+    onClick={() => router.push(`/profile/${profile.userId._id}`)}>
+    
+    {/* <div className={styles.profileAvatar}>
+      {profile.userId.profilePicture
+        ? <img src={profile.userId.profilePicture} alt={profile.userId.name} />
+        : <span>{profile.userId.name?.charAt(0).toUpperCase()}</span>
+      }
+    </div> */}
+    <div className={styles.profileAvatar}>
+  {profile.userId.profilePicture && profile.userId.profilePicture !== "default.jpg" ? (
+    <img
+      src={`http://localhost:5000/uploads/${profile.userId.profilePicture}`}
+      alt={profile.userId.name}
+      onError={(e) => {
+        e.target.style.display = 'none';
+        e.target.nextSibling.style.display = 'flex';
+      }}
+    />
+  ) : null}
+  <span style={{ 
+    display: profile.userId.profilePicture && profile.userId.profilePicture !== "default.jpg" 
+      ? 'none' 
+      : 'flex' 
+  }}>
+    {profile.userId.name?.charAt(0).toUpperCase()}
+  </span>
+</div>
+
+    <div className={styles.profileInfo}>
+      <p className={styles.profileName}>{profile.userId.name}</p>
+      <p className={styles.profileUsername}>@{profile.userId.username}</p>
+    </div>
+
+  </div>
+))}
         </div>
 
         </div>
