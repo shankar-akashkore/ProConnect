@@ -4,7 +4,7 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 1rem 2rem;
+    padding: 1.6rem 2rem;
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -94,6 +94,6 @@
 }
 
 .navSpacer {
-    height: 72px;
+    height: 88px;
     width: 100%;
 }
