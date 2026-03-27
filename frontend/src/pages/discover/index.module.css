@@ -1,4 +1,4 @@
-.userCard {
+/* .userCard {
     display: flex;
     gap: 1.2rem;
     padding: 1.3rem;
@@ -21,4 +21,172 @@
     display: flex;
     flex-direction: column;
     gap: 1.3rem;
-}
+} */
+
+
+
+
+
+.page {
+    padding: 2rem 0;
+  }
+  
+  .heading {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 2rem;
+  }
+  
+  /* ── User List ── */
+  .allUserProfile {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 640px;
+  }
+  
+  .userCard {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #f1f1f1;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    border-radius: 6px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .userCard:hover {
+    background: #86bcee25;
+  }
+  
+  .userCard:hover .userName {
+    color: #111;
+  }
+  
+  .userCard:first-child {
+    border-top: 1px solid #f1f1f1;
+  }
+  
+  .userCard_image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #e5e7eb;
+  }
+  
+  .avatarFallback {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #111;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    letter-spacing: 0.01em;
+  }
+  
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .userName {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #374151;
+    transition: color 0.15s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .userHandle {
+    font-size: 0.78rem;
+    color: #9ca3af;
+  }
+  
+  .arrow {
+    color: #d1d5db;
+    font-size: 0.85rem;
+    transition: transform 0.15s, color 0.15s;
+  }
+  
+  .userCard:hover .arrow {
+    transform: translateX(3px);
+    color: #6b7280;
+  }
+  
+  /* ── Empty State ── */
+  .empty {
+    padding: 3rem 0;
+    color: #9ca3af;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+  
+  /* ── Loading skeleton ── */
+  .skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 640px;
+  }
+  
+  .skeletonCard {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0.5rem;
+    border-bottom: 1px solid #f1f1f1;
+  }
+  
+  .skeletonCard:first-child {
+    border-top: 1px solid #f1f1f1;
+  }
+  
+  .skeletonAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f3f4f6;
+    animation: pulse 1.4s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  
+  .skeletonLines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+  }
+  
+  .skeletonLine {
+    height: 10px;
+    border-radius: 4px;
+    background: #f3f4f6;
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  
+  .skeletonLine:last-child {
+    width: 55%;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
