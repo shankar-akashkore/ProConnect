@@ -1,4 +1,4 @@
-.container {
+/* .container {
     padding: 1.3rem;
     background: rgba(243, 242, 242, 0.384);
     display: flex;
@@ -186,4 +186,358 @@
     border-radius: 10px;
     border: 1px solid silver;
     width: 100%;
+} */
+
+
+
+
+
+
+
+
+
+
+/* ── Reset & base ───────────────────────────────────────── */
+.container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    color: #111;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ── Banner ─────────────────────────────────────────────── */
+.banner {
+    width: 100%;
+    height: 160px;
+    background: url('https://images.pexels.com/photos/3255761/pexels-photo-3255761.jpeg') center/cover no-repeat;
+    border-radius: 8px;
+    position: relative;
+}
+
+/* ── Avatar ─────────────────────────────────────────────── */
+.avatarLabel {
+    position: absolute;
+    bottom: -36px;
+    left: 24px;
+    cursor: pointer;
+    display: block;
+    width: 72px;
+    height: 72px;
+}
+
+.avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    display: block;
+    transition: opacity 0.2s;
+}
+
+.avatarLabel:hover .avatar {
+    opacity: 0.6;
+}
+
+.avatarHint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: #fff;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+}
+
+.avatarLabel:hover .avatarHint {
+    opacity: 1;
+}
+
+/* ── Identity ───────────────────────────────────────────── */
+.identity {
+    padding-top: 2.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nameRow {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+}
+
+.nameInput {
+    font-size: 1.25rem;
+    font-weight: 600;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #111;
+    padding: 0;
+    border-bottom: 1.5px solid transparent;
+    transition: border-color 0.15s;
+}
+
+.nameInput:focus {
+    border-bottom-color: #111;
+}
+
+.username {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.bio {
+    resize: none;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.55;
+    padding: 0;
+    width: 100%;
+    font-family: inherit;
+}
+
+.bio::placeholder {
+    color: #bbb;
+}
+
+.saveBtn {
+    margin-top: 0.4rem;
+    align-self: flex-start;
+    padding: 0.38rem 1rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    background: #458ccea4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.saveBtn:hover {
+    background: #458cce;
+}
+
+/* ── Divider ────────────────────────────────────────────── */
+.divider {
+    border: none;
+    border-top: 1px solid #e8e8e8;
+    margin: 0;
+}
+
+/* ── Body ───────────────────────────────────────────────── */
+.body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.colLabel {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #aaa;
+    margin: 0 0 0.2rem;
+}
+
+/* Posts */
+.postRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.postRow:last-of-type {
+    border-bottom: none;
+}
+
+.postThumb {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.postText {
+    font-size: 0.85rem;
+    color: #333;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.empty {
+    font-size: 0.85rem;
+    color: #bbb;
+    margin: 0;
+}
+
+/* Work */
+.workRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.workDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #111;
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+.workCompany {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #111;
+    margin: 0;
+}
+
+.workMeta {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 2px 0 0;
+}
+
+.addBtn {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.82rem;
+    color: #888;
+    cursor: pointer;
+    text-align: left;
+    margin-top: 0.2rem;
+    font-family: inherit;
+    transition: color 0.15s;
+}
+
+.addBtn:hover {
+    color: #111;
+}
+
+/* ── Modal ──────────────────────────────────────────────── */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.8rem;
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.modalTitle {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 0.2rem;
+    color: #111;
+}
+
+.field {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.88rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s;
+    color: #111;
+}
+
+.field:focus {
+    border-color: #111;
+}
+
+.field::placeholder {
+    color: #bbb;
+}
+
+.modalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    margin-top: 0.2rem;
+}
+
+.cancelBtn {
+    padding: 0.42rem 0.9rem;
+    font-size: 0.82rem;
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    color: #555;
+    transition: border-color 0.15s;
+}
+
+.cancelBtn:hover {
+    border-color: #999;
+}
+
+.confirmBtn {
+    padding: 0.42rem 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    background: #458ccea4;;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+
+.confirmBtn:hover {
+    background: #458cce;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 580px) {
+    .body {
+        grid-template-columns: 1fr;
+        gap: 1.6rem;
+    }
 }
