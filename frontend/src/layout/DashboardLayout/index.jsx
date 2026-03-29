@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import { setTokenThere } from '@/config/redux/reducer/authReducer';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { sendConnectionRequest } from '@/config/redux/action/authAction';
+
 
 
 
@@ -77,15 +79,11 @@ function DashboardLayout({ children }) {
           <h3 className={styles.topProfileHeading}>Top Profiles</h3>
 
           {authState.all_profiles_fetched && authState.all_users.map((profile) => (
-            <div key={profile._id} className={styles.extraContainer_profile}
-              onClick={() => router.push(`/profile/${profile.userId._id}`)}>
+            <div key={profile._id} 
+            className={styles.extraContainer_profile}
+            onClick={() => router.push(`/profiles/${profile.userId.username}`)}
+              >
 
-              {/* <div className={styles.profileAvatar}>
-      {profile.userId.profilePicture
-        ? <img src={profile.userId.profilePicture} alt={profile.userId.name} />
-        : <span>{profile.userId.name?.charAt(0).toUpperCase()}</span>
-      }
-    </div> */}
               <div className={styles.profileAvatar}>
                 {profile.userId.profilePicture && profile.userId.profilePicture !== "default.jpg" ? (
                   <img

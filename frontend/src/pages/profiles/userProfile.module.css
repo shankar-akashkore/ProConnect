@@ -1,0 +1,212 @@
+/* userProfile.module.css */
+
+.loading {
+    padding: 2rem;
+    color: #888;
+    font-size: 0.9rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #111;
+}
+
+/* ── Banner ─────────────────────────────────────────────── */
+.banner {
+    width: 100%;
+    height: 160px;
+    background: url('https://images.pexels.com/photos/3255761/pexels-photo-3255761.jpeg') center/cover no-repeat;
+    border-radius: 8px;
+    position: relative;
+}
+
+/* ── Avatar ─────────────────────────────────────────────── */
+.avatarWrapper {
+    position: absolute;
+    bottom: -36px;
+    left: 24px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    overflow: hidden;
+    background: #e5e7eb;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ── Identity ───────────────────────────────────────────── */
+.identity {
+    padding-top: 2.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.nameRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    color: #111;
+}
+
+.username {
+    font-size: 0.85rem;
+    color: #888;
+    display: block;
+    margin-top: 2px;
+}
+
+.bio {
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* Connect button */
+.connectBtn {
+    padding: 0.38rem 1.2rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+    white-space: nowrap;
+}
+
+.connectBtn:hover {
+    background: #333;
+}
+
+/* ── Divider ────────────────────────────────────────────── */
+.divider {
+    border: none;
+    border-top: 1px solid #e8e8e8;
+    margin: 0;
+}
+
+/* ── Body ───────────────────────────────────────────────── */
+.body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.colLabel {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #aaa;
+    margin: 0 0 0.2rem;
+}
+
+/* ── Posts ──────────────────────────────────────────────── */
+.postRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.postRow:last-of-type {
+    border-bottom: none;
+}
+
+.postThumb {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.postText {
+    font-size: 0.85rem;
+    color: #333;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.empty {
+    font-size: 0.85rem;
+    color: #bbb;
+    margin: 0;
+}
+
+/* ── Work ───────────────────────────────────────────────── */
+.workRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.workDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #111;
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+.workCompany {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #111;
+    margin: 0;
+}
+
+.workMeta {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 2px 0 0;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 580px) {
+    .body {
+        grid-template-columns: 1fr;
+        gap: 1.6rem;
+    }
+
+    .banner {
+        height: 120px;
+    }
+}

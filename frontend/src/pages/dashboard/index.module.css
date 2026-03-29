@@ -21,6 +21,8 @@
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     border: 1px solid rgba(0, 0, 0, 0.03);
+    flex-wrap: nowrap;        
+    overflow: visible;        
 }
 
 .userProfile {
@@ -41,6 +43,8 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 0.8rem;
+    flex-shrink: 0;           
+    min-width: 50px; 
 }
 
 .Fab {
@@ -90,16 +94,19 @@
 }
 
 .uploadButton {
-    background: #3b82f6;
+    background: #458ccea4;
     color: white;
-    border-radius: 20px;
-    padding: 0.6rem 1.5rem;
-    font-weight: 600;
-    font-size: 0.95rem;
+    border-radius: 50%;          /* make it intentionally circular */
+    width: 42px;                 /* fixed size like the + button */
+    height: 42px;
+    display: flex;               /* ADD THIS */
+    align-items: center;         /* ADD THIS */
+    justify-content: center;     /* ADD THIS */
     cursor: pointer;
     border: none;
     transition: all 0.2s ease;
     box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+    padding: 0;  
 }
 
 .uploadButton:hover {
@@ -343,4 +350,11 @@
 
 .postCommnetContainer_commentBtn:hover {
     background: #2563eb;
+}
+
+.uploadButton svg {
+    width: 20px;
+    height: 20px;
+    color: white;
+    stroke: white;               
 }
