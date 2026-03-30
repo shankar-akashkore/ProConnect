@@ -180,7 +180,27 @@ export default function Dashboard() {
                     return (
                       <div className={styles.singleComment} key={comment._id}>
                         <div className={styles.singleComment_profileContainer}>
-                          <img src={`${BASE_URL}/${comment?.userId?.profilePicture}`} alt=''/>
+                          <div className={styles.commentAvatar}>
+                            {comment?.userId?.profilePicture && comment.userId.profilePicture !== "default.jpg" ? (
+                              <img
+                                src={`${BASE_URL}/${comment.userId.profilePicture}`}
+                                alt={comment?.userId?.name || "Comment user"}
+                                onError={(e) => {
+                                  e.target.style.display = 'none';
+                                  e.target.nextSibling.style.display = 'flex';
+                                }}
+                              />
+                            ) : null}
+                            <span
+                              style={{
+                                display: comment?.userId?.profilePicture && comment.userId.profilePicture !== "default.jpg"
+                                  ? 'none'
+                                  : 'flex'
+                              }}
+                            >
+                              {comment?.userId?.name?.charAt(0)?.toUpperCase() || "U"}
+                            </span>
+                          </div>
                           <div>
                             <h4>{comment.userId.name}</h4>
                             <p>@{comment.userId.username}</p>
