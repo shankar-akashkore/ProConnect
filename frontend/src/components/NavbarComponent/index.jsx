@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.css";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
@@ -7,31 +7,55 @@ import { reset } from "@/config/redux/reducer/authReducer";
 
 export default function NavbarComponent() {
   const router = useRouter();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const authState = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
+  const handleNavigate = (path) => {
+    setIsMobileMenuOpen(false);
+    router.push(path);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsMobileMenuOpen(false);
+    router.push("/login");
+    dispatch(reset());
+  };
+
   return (
     <div className={styles.container}>
       <nav className={styles.navBar}>
-
         <h3 className={styles.logo} onClick={() => {
-          router.push('/')
+          handleNavigate("/");
         }}>ProConnect</h3>
 
-        <div className={styles.navBarOptionContainer}>
+        <button
+          type="button"
+          className={styles.menuButton}
+          aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isMobileMenuOpen}
+          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+        >
+          <span className={styles.menuLine} />
+          <span className={styles.menuLine} />
+          <span className={styles.menuLine} />
+        </button>
+
+        <div
+          className={`${styles.navBarOptionContainer} ${isMobileMenuOpen ? styles.mobileMenuOpen : ""}`}
+        >
 
           {authState.profileFetched && <div>
             <div className={styles.userInfoContainer}>
               <p className={styles.greeting}>Hey, {authState.user.userId.name}</p>
               <p className={styles.navLink} onClick={() => {
-                router.push('/profile');
+                handleNavigate("/profile");
               }}>Profile</p>
               <p className={styles.navLink} onClick={() => {
-                localStorage.removeItem('token');
-                router.push('/login');
-                dispatch(reset());
+                handleLogout();
               }}>LogOut</p>
             </div>
           </div>}
@@ -39,7 +63,7 @@ export default function NavbarComponent() {
 
 
           {!authState.profileFetched && <div onClick={() => {
-            router.push('/login')
+            handleNavigate("/login");
           }} className={styles.buttonJoin}>
             <p>Be a part</p>
           </div>}
@@ -52,4 +76,3 @@ export default function NavbarComponent() {
     </div>
   );
 }
-

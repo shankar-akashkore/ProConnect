@@ -277,7 +277,7 @@
     gap: 40px;
     padding: 40px 24px 36px;
   }
-  .categories { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; gap: 0 32px; }
+  .categories { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; gap: 8px 32px; }
   .catLink { font-size: 2rem; }
   .linkCol { padding-left: 0; }
   .bar { padding: 16px 24px; }
@@ -285,6 +285,68 @@
 }
 
 @media (max-width: 560px) {
-  .top { grid-template-columns: 1fr; }
-  .legalLinks { gap: 14px; }
+  .top {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 32px 18px 28px;
+  }
+
+  .categories {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .catLink {
+    font-size: 1.6rem;
+  }
+
+  .colHeading {
+    margin-bottom: 14px;
+  }
+
+  .linkList {
+    gap: 10px;
+  }
+
+  .linkList a {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+  }
+
+  .bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 18px;
+  }
+
+  .socials {
+    flex-wrap: wrap;
+  }
+
+  .legalLinks {
+    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .legalLinks a {
+    font-size: 0.68rem;
+  }
+
+  .bigWord {
+    padding: 0 18px 10px;
+  }
+
+  .bigWordText {
+    font-size: clamp(48px, 24vw, 88px);
+    line-height: 0.9;
+  }
+
+  .cursor {
+    right: 18px;
+    bottom: 12px;
+    width: 18px;
+    height: 18px;
+  }
 }

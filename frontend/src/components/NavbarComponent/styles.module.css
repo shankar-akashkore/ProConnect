@@ -37,6 +37,25 @@
     transform: scale(1.02);
 }
 
+.menuButton {
+    display: none;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.menuLine {
+    width: 1.4rem;
+    height: 2px;
+    border-radius: 999px;
+    background: #1a2535;
+}
+
 .navBarOptionContainer {
     display: flex;
     align-items: center;
@@ -96,4 +115,67 @@
 .navSpacer {
     height: 75px;
     width: 100%;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem 1rem;
+    }
+
+    .navBar {
+        position: relative;
+        align-items: flex-start;
+    }
+
+    .logo {
+        font-size: 1.05rem;
+        padding-top: 0.25rem;
+    }
+
+    .menuButton {
+        display: flex;
+    }
+
+    .navBarOptionContainer {
+        position: absolute;
+        top: calc(100% + 0.85rem);
+        left: 0;
+        right: 0;
+        display: none;
+        padding: 1rem;
+        border: 1px solid rgba(69, 140, 206, 0.14);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 18px 40px rgba(26, 37, 53, 0.12);
+    }
+
+    .mobileMenuOpen {
+        display: flex;
+    }
+
+    .navBarOptionContainer > div {
+        width: 100%;
+    }
+
+    .userInfoContainer {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.9rem;
+    }
+
+    .greeting {
+        font-size: 0.9rem;
+    }
+
+    .navLink {
+        width: 100%;
+        padding-bottom: 0.25rem;
+    }
+
+    .buttonJoin {
+        width: 100%;
+        min-height: 44px;
+        border-radius: 14px;
+    }
 }
