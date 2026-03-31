@@ -197,6 +197,7 @@
 
 
 
+
 /* ── Reset & base ───────────────────────────────────────── */
 .container {
     max-width: 780px;
@@ -286,6 +287,9 @@
     padding: 0;
     border-bottom: 1.5px solid transparent;
     transition: border-color 0.15s;
+    /* Prevent overflow on small screens */
+    max-width: 100%;
+    min-width: 0;
 }
 
 .nameInput:focus {
@@ -295,6 +299,7 @@
 .username {
     font-size: 0.85rem;
     color: #888;
+    white-space: nowrap;
 }
 
 .bio {
@@ -454,6 +459,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 1rem;
 }
 
 .modal {
@@ -484,6 +490,8 @@
     outline: none;
     transition: border-color 0.15s;
     color: #111;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .field:focus {
@@ -534,10 +542,199 @@
     background: #458cce;
 }
 
-/* ── Responsive ─────────────────────────────────────────── */
+/* ── Responsive: Tablet (max 768px) ────────────────────── */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.25rem 1rem 3rem;
+        gap: 1.2rem;
+    }
+
+    .banner {
+        height: 130px;
+        border-radius: 6px;
+    }
+
+    .avatarLabel {
+        bottom: -30px;
+        left: 16px;
+        width: 62px;
+        height: 62px;
+    }
+
+    .avatar {
+        width: 62px;
+        height: 62px;
+    }
+
+    .identity {
+        padding-top: 2.2rem;
+    }
+
+    .nameInput {
+        font-size: 1.1rem;
+    }
+
+    .body {
+        gap: 1.8rem;
+    }
+}
+
+/* ── Responsive: Mobile (max 580px) ────────────────────── */
 @media (max-width: 580px) {
+    .container {
+        padding: 1rem 0.85rem 3rem;
+        gap: 1rem;
+    }
+
+    .banner {
+        height: 110px;
+        border-radius: 6px;
+    }
+
+    .avatarLabel {
+        bottom: -26px;
+        left: 14px;
+        width: 54px;
+        height: 54px;
+    }
+
+    .avatar {
+        width: 54px;
+        height: 54px;
+        border-width: 2.5px;
+    }
+
+    .identity {
+        padding-top: 1.9rem;
+        gap: 0.4rem;
+    }
+
+    .nameRow {
+        gap: 0.45rem;
+        align-items: center;
+    }
+
+    .nameInput {
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    .username {
+        font-size: 0.78rem;
+    }
+
+    .bio {
+        font-size: 0.85rem;
+    }
+
+    .saveBtn {
+        width: 100%;
+        text-align: center;
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        border-radius: 6px;
+    }
+
+    /* Stack columns vertically on mobile */
     .body {
         grid-template-columns: 1fr;
-        gap: 1.6rem;
+        gap: 1.4rem;
+    }
+
+    /* Divider between stacked sections */
+    .col + .col {
+        padding-top: 1rem;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .colLabel {
+        font-size: 0.68rem;
+    }
+
+    .postThumb {
+        width: 38px;
+        height: 38px;
+    }
+
+    .postText {
+        font-size: 0.82rem;
+    }
+
+    .workCompany {
+        font-size: 0.85rem;
+    }
+
+    .workMeta {
+        font-size: 0.76rem;
+    }
+
+    .addBtn {
+        font-size: 0.82rem;
+        padding: 0.4rem 0;
+    }
+
+    /* Modal full-width on small screens */
+    .modal {
+        padding: 1.4rem;
+        max-width: 100%;
+        border-radius: 10px;
+    }
+
+    .modalTitle {
+        font-size: 0.9rem;
+    }
+
+    .field {
+        font-size: 0.85rem;
+        padding: 0.55rem 0.7rem;
+    }
+
+    .modalActions {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    .cancelBtn,
+    .confirmBtn {
+        flex: 1;
+        text-align: center;
+        padding: 0.5rem 0.5rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* ── Responsive: Very small (max 380px) ─────────────────── */
+@media (max-width: 380px) {
+    .container {
+        padding: 0.75rem 0.65rem 2.5rem;
+    }
+
+    .banner {
+        height: 90px;
+    }
+
+    .avatarLabel {
+        bottom: -22px;
+        left: 10px;
+        width: 46px;
+        height: 46px;
+    }
+
+    .avatar {
+        width: 46px;
+        height: 46px;
+        border-width: 2px;
+    }
+
+    .identity {
+        padding-top: 1.6rem;
+    }
+
+    .nameInput {
+        font-size: 0.95rem;
+    }
+
+    .username {
+        font-size: 0.72rem;
     }
 }
