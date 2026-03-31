@@ -1,24 +1,28 @@
 .homeContainer {
     display: flex;
     padding-top: 1.5rem;
-    /* max-width: 1280px; */
     width: 100%;
-    margin: 0 0.6rem;
+    margin: 0;
     padding-inline: 0;
     align-items: flex-start;
+    gap: 1rem;
+    box-sizing: border-box;
 }
 
 .homeContainer>div:nth-child(1) {
     flex: 0.18;
+    min-width: 0;
 }
 
 .homeContainer>div:nth-child(2) {
     flex: 0.57;
-    margin: 0 1.5rem;
+    margin: 0;
+    min-width: 0;
 }
 
 .homeContainer>div:nth-child(3) {
     flex: 0.25;
+    min-width: 0;
 }
 
 .homeContainer_left {
@@ -33,6 +37,10 @@
     top: 88px;
     max-height: calc(100vh - 104px);
     overflow-y: auto;
+}
+
+.homeContainer_feedContainer {
+    min-width: 0;
 }
 
 .sideBarOption {
@@ -153,6 +161,8 @@
 @media (max-width: 1024px) {
     .homeContainer {
         flex-direction: column;
+        gap: 1.25rem;
+        margin: 0;
     }
 
     .homeContainer > div:nth-child(1),
@@ -172,5 +182,88 @@
         border: none;
         padding-left: 0;
         padding-right: 0;
+    }
+
+    .homeContainer > div:nth-child(1) {
+        order: 1;
+    }
+
+    .homeContainer > div:nth-child(2) {
+        order: 2;
+    }
+
+    .homeContainer > div:nth-child(3) {
+        order: 3;
+    }
+
+    .homeContainer_left {
+        flex-direction: row;
+        align-items: stretch;
+        gap: 0.75rem;
+        overflow-x: auto;
+        padding-bottom: 0.35rem;
+    }
+
+    .sideBarOption {
+        min-width: 150px;
+        justify-content: center;
+        padding: 0.85rem 1rem;
+        background: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+    }
+
+    .homeContainer_extraContainer {
+        padding-top: 0.25rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .homeContainer {
+        padding-top: 1rem;
+        gap: 1rem;
+    }
+
+    .homeContainer_left {
+        gap: 0.6rem;
+        margin-inline: -0.15rem;
+        padding-inline: 0.15rem;
+        scrollbar-width: none;
+    }
+
+    .homeContainer_left::-webkit-scrollbar {
+        display: none;
+    }
+
+    .sideBarOption {
+        min-width: 132px;
+        gap: 0.65rem;
+        font-size: 0.95rem;
+        border-radius: 14px;
+    }
+
+    .sideBarOption > p {
+        white-space: nowrap;
+    }
+
+    .topProfileHeading {
+        padding-left: 0;
+        margin-bottom: 0.8rem;
+    }
+
+    .extraContainer_profile {
+        padding: 0.7rem 0.25rem;
+        border-radius: 0;
+        background: transparent;
+        border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+        margin-bottom: 0;
+    }
+
+    .extraContainer_profile:last-child {
+        border-bottom: none;
+    }
+
+    .extraContainer_profile:hover {
+        transform: none;
     }
 }

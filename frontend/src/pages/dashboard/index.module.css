@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     padding-bottom: 4rem;
+    width: 100%;
 }
 
 .wrapper {
@@ -9,6 +10,7 @@
     flex-direction: column;
     gap: 1.8rem;
     width: 90%;
+    min-width: 0;
 }
 
 .createPostContainer {
@@ -21,8 +23,9 @@
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     border: 1px solid rgba(0, 0, 0, 0.03);
-    flex-wrap: nowrap;        
-    overflow: visible;        
+    flex-wrap: nowrap;
+    overflow: visible;
+    min-width: 0;
 }
 
 .userProfile {
@@ -36,6 +39,7 @@
 .createPostContainer > textarea {
     width: 100%;
     flex: 1;
+    min-width: 0;
 }
 
 .inputActions {
@@ -43,8 +47,8 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 0.8rem;
-    flex-shrink: 0;           
-    min-width: 50px; 
+    flex-shrink: 0;
+    min-width: 50px;
 }
 
 .Fab {
@@ -138,6 +142,7 @@
     align-items: flex-start;
     gap: 1.2rem;
     padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+    min-width: 0;
 }
 
 .singleCard_profile_img {
@@ -152,12 +157,15 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    gap: 0.75rem;
 }
 
 .postHeader p {
     font-weight: 700;
     font-size: 1.05rem;
     color: #111827;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .deleteIcon {
@@ -192,6 +200,7 @@
     color: #374151;
     line-height: 1.5;
     padding-bottom: 0.8rem;
+    overflow-wrap: anywhere;
 }
 
 .singleCard_image {
@@ -210,6 +219,9 @@
 .optionsContainer {
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
     padding: 0.8rem 1rem;
     border-top: 1px solid #f3f4f6;
 }
@@ -224,6 +236,7 @@
     color: #6b7280;
     font-weight: 500;
     transition: all 0.2s ease;
+    min-width: 0;
 }
 
 .singleOption_optionContainer:hover {
@@ -383,5 +396,171 @@
     width: 20px;
     height: 20px;
     color: white;
-    stroke: white;               
+    stroke: white;
+}
+
+@media (max-width: 900px) {
+    .wrapper {
+        width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .scrollComponnt {
+        justify-content: stretch;
+        padding-bottom: 2.5rem;
+    }
+
+    .wrapper {
+        width: 100%;
+        gap: 1rem;
+    }
+
+    .createPostContainer {
+        padding: 1rem;
+        gap: 0.9rem;
+        flex-wrap: wrap;
+    }
+
+    .userProfile {
+        height: 42px;
+        width: 42px;
+    }
+
+    .textareaOfContent {
+        order: 2;
+        width: 100%;
+        min-height: 110px;
+        font-size: 1rem;
+        padding: 0.9rem 1rem;
+    }
+
+    .inputActions {
+        order: 3;
+        width: 100%;
+        min-width: 0;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .postContainer {
+        gap: 1rem;
+    }
+
+    .singleCard_profile {
+        gap: 0.85rem;
+        padding: 1rem 1rem 0.25rem 1rem;
+    }
+
+    .singleCard_profile_img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .postHeader {
+        align-items: flex-start;
+    }
+
+    .postHeader p {
+        font-size: 1rem;
+    }
+
+    .postUsername {
+        font-size: 0.85rem;
+    }
+
+    .postBody {
+        padding-top: 0.75rem;
+        font-size: 0.98rem;
+        line-height: 1.45;
+    }
+
+    .singleCard_image {
+        padding: 0 1rem 0.85rem 1rem;
+    }
+
+    .optionsContainer {
+        justify-content: space-between;
+        padding: 0.65rem 0.75rem;
+        gap: 0.5rem;
+    }
+
+    .singleOption_optionContainer {
+        flex: 1 1 30%;
+        justify-content: center;
+        padding: 0.65rem 0.75rem;
+        gap: 0.45rem;
+    }
+
+    .singleOption_optionContainer > p {
+        font-size: 0.9rem;
+    }
+
+    .commentsContainer {
+        align-items: flex-end;
+    }
+
+    .allCommentsContainer {
+        width: 100%;
+        max-width: none;
+        height: min(88vh, 720px);
+        border-radius: 20px 20px 0 0;
+        padding: 1rem;
+    }
+
+    .commentsList {
+        margin-bottom: 4.75rem;
+        padding-right: 0;
+    }
+
+    .singleComment {
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .singleComment_profileContainer {
+        gap: 0.75rem;
+    }
+
+    .singleComment > p {
+        padding-left: 0;
+    }
+
+    .postCommentContainer {
+        padding: 1rem;
+        gap: 0.75rem;
+        align-items: stretch;
+    }
+
+    .postCommentContainer > input {
+        min-width: 0;
+        padding: 0.8rem 1rem;
+    }
+
+    .postCommnetContainer_commentBtn {
+        padding: 0.8rem 1rem;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+    }
+}
+
+@media (max-width: 420px) {
+    .createPostContainer {
+        padding: 0.9rem;
+    }
+
+    .singleOption_optionContainer {
+        flex-basis: calc(50% - 0.25rem);
+    }
+
+    .postCommentContainer {
+        flex-wrap: wrap;
+    }
+
+    .postCommnetContainer_commentBtn {
+        width: 100%;
+        justify-content: center;
+    }
 }
