@@ -29,7 +29,9 @@
 
 .page {
     padding: 2rem 0;
-  }
+    width: 100%;
+    min-width: 0;
+}
   
   .heading {
     font-size: 0.7rem;
@@ -46,6 +48,7 @@
     flex-direction: column;
     gap: 0;
     max-width: 640px;
+    width: 100%;
   }
   
   .userCard {
@@ -118,6 +121,9 @@
   .userHandle {
     font-size: 0.78rem;
     color: #9ca3af;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .arrow {
@@ -145,6 +151,7 @@
     flex-direction: column;
     gap: 0;
     max-width: 640px;
+    width: 100%;
   }
   
   .skeletonCard {
@@ -189,4 +196,60 @@
   @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
+  }
+
+  @media (max-width: 768px) {
+    .page {
+      padding: 1rem 0 2rem;
+    }
+
+    .heading {
+      margin-bottom: 1.25rem;
+    }
+
+    .allUserProfile,
+    .skeleton {
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .page {
+      padding: 0.75rem 0 1.5rem;
+    }
+
+    .heading {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      margin-bottom: 1rem;
+    }
+
+    .userCard {
+      gap: 0.85rem;
+      padding: 0.9rem 0.25rem;
+      border-radius: 0;
+    }
+
+    .userCard_image,
+    .avatarFallback,
+    .skeletonAvatar {
+      width: 44px;
+      height: 44px;
+    }
+
+    .userName {
+      font-size: 0.95rem;
+    }
+
+    .userHandle {
+      font-size: 0.8rem;
+    }
+
+    .arrow {
+      font-size: 1rem;
+    }
+
+    .empty {
+      padding: 2rem 0;
+    }
   }

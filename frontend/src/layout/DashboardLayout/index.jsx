@@ -11,7 +11,7 @@ import { sendConnectionRequest } from '@/config/redux/action/authAction';
 
 
 
-function DashboardLayout({ children }) {
+function DashboardLayout({ children, showExtraSection = true, hideExtraSectionOnMobile = false }) {
 
   const router = useRouter();
 
@@ -66,7 +66,7 @@ function DashboardLayout({ children }) {
           {children}
         </div>
 
-        <div className={styles.homeContainer_extraContainer}>
+        {showExtraSection && <div className={`${styles.homeContainer_extraContainer} ${hideExtraSectionOnMobile ? styles.hideExtraSectionOnMobile : ''}`}>
           {/* <h3>Top Profile</h3>
 
           {authState.all_profiles_fetched && authState.all_users.map((profile) => {
@@ -111,7 +111,7 @@ function DashboardLayout({ children }) {
 
             </div>
           ))}
-        </div>
+        </div>}
 
       </div>
 
