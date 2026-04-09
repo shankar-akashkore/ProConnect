@@ -105,3 +105,74 @@
     line-height: 1.7;
     margin: 0;
   }
+/* ── Mobile Responsive ── */
+@media (max-width: 768px) {
+
+  .section {
+    flex-direction: column;
+    padding: 16px;
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  /* Sidebar moves to top on mobile */
+  .sidebar {
+    width: 100%;
+    padding-left: 0;
+    order: -1;
+  }
+
+  .sidebarTitle {
+    font-size: 24px;
+    margin-bottom: 6px;
+  }
+
+  .sidebarText {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* Grid drops to 2 columns on mobile */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .flipWrap,
+  .flipInner {
+    min-height: 100px;
+  }
+
+  .front,
+  .back {
+    font-size: 13px;
+    padding: 0.75rem;
+  }
+
+  .back {
+    font-size: 10px;
+  }
+}
+
+/* ── Extra small screens (< 400px) ── */
+@media (max-width: 400px) {
+
+  .section {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  /* Single column on very small screens */
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flipWrap,
+  .flipInner {
+    min-height: 80px;
+  }
+
+  .sidebarTitle {
+    font-size: 20px;
+  }
+}
