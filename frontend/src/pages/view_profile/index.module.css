@@ -1,4 +1,4 @@
-.container {
+/* .container {
     padding: 1.3rem;
     background: rgba(243, 242, 242, 0.384);
     display: flex;
@@ -84,4 +84,142 @@
     padding-block: 1rem;
     border-radius: 10px;
     box-shadow: 5px 5px 10px rgba(173, 173, 173);
+} */
+
+
+/* Base (Mobile First) */
+.container {
+    padding: 1rem;
+    background: rgba(243, 242, 242, 0.384);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Backdrop */
+.backDropContainer {
+    width: 100%;
+    height: 22vh;
+    background: url('https://images.pexels.com/photos/3255761/pexels-photo-3255761.jpeg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 12px;
+}
+
+/* Profile Image */
+.backDropContainer img {
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -25%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 3px solid white;
+}
+
+/* Profile Details */
+.profileContainer_details {
+    padding-top: 4rem;
+    text-align: center;
+}
+
+/* Cards */
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+}
+
+/* Profile inside card */
+.card_profileContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.card_profileContainer > img {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+}
+
+/* Buttons */
+.connectBtn,
+.connectedButton {
+    padding: 0.3rem 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.connectBtn {
+    background-color: rgba(107, 107, 238, 0.585);
+    border: none;
+    color: white;
+}
+
+.connectedButton {
+    border: 1px solid rgba(107, 107, 238, 0.585);
+    color: rgba(107, 107, 238, 0.585);
+    background: transparent;
+}
+
+/* Work History */
+.workHistoryContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.workHistoryCard {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(173, 173, 173, 0.3);
+}
+
+/* ---------------- DESKTOP (Tablet & Above) ---------------- */
+@media (min-width: 768px) {
+
+    .container {
+        padding: 1.3rem;
+        gap: 1.2rem;
+    }
+
+    .backDropContainer {
+        height: 30vh;
+    }
+
+    .backDropContainer img {
+        width: 10em;
+        height: 10em;
+        left: 6%;
+        transform: none;
+        bottom: -30%;
+    }
+
+    .profileContainer_details {
+        padding-top: 6.6rem;
+        text-align: left;
+    }
+
+    .card {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .workHistoryContainer {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .workHistoryCard {
+        min-width: fit-content;
+        padding-inline: 2.5rem;
+    }
 }
