@@ -200,7 +200,7 @@
 }
 
 /* ── Responsive ─────────────────────────────────────────── */
-@media (max-width: 580px) {
+/* @media (max-width: 580px) {
     .body {
         grid-template-columns: 1fr;
         gap: 1.6rem;
@@ -208,5 +208,102 @@
 
     .banner {
         height: 120px;
+    }
+} */
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 580px) {
+    .container {
+        padding: 1rem 1rem 3rem;
+        gap: 1.2rem;
+    }
+
+    .banner {
+        height: 110px;
+        border-radius: 6px;
+    }
+
+    /* Smaller avatar on mobile */
+    .avatarWrapper {
+        width: 56px;
+        height: 56px;
+        bottom: -28px;
+        left: 16px;
+    }
+
+    /* Less top padding since avatar is smaller */
+    .identity {
+        padding-top: 2rem;
+        padding-left: 0;
+    }
+
+    .name {
+        font-size: 1.05rem;
+    }
+
+    /* Stack connect button below name on very small screens */
+    .nameRow {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .connectBtn {
+        padding: 0.32rem 0.9rem;
+        font-size: 0.78rem;
+        align-self: flex-start;
+    }
+
+    .bio {
+        font-size: 0.82rem;
+    }
+
+    /* Single column layout */
+    .body {
+        grid-template-columns: 1fr;
+        gap: 1.4rem;
+    }
+
+    /* Tighter post thumbnails */
+    .postThumb {
+        width: 38px;
+        height: 38px;
+    }
+
+    .postText {
+        font-size: 0.82rem;
+    }
+
+    .workCompany {
+        font-size: 0.85rem;
+    }
+
+    .workMeta {
+        font-size: 0.75rem;
+    }
+}
+
+/* ── Very small screens (≤380px) ──────────────────────────── */
+@media (max-width: 380px) {
+    .container {
+        padding: 0.75rem 0.75rem 2.5rem;
+    }
+
+    .banner {
+        height: 90px;
+    }
+
+    .name {
+        font-size: 0.98rem;
+    }
+
+    /* Wrap connect button below name on tiny screens */
+    .nameRow {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .connectBtn {
+        width: 100%;
+        text-align: center;
     }
 }
