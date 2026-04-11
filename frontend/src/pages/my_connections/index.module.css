@@ -1,38 +1,3 @@
-/* .userCard {
-    display: flex;
-    width: 100%;
-    gap: 1.2rem;
-    padding: 1.3rem;
-    align-items: center;
-    box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.1);
-}
-
-.profilePicture > img {
-    width: 6.5rem;
-    border-radius: 50%;
-}
-
-.myConnections {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-    padding-bottom: 1.5rem;
-    cursor: pointer;
-}
-
-.connectedButton {
-    padding-inline: 0.8rem;
-    padding-block: 1.3rem;
-    border: 1px solid royalblue;
-    outline: none;
-    color: royalblue;
-    border-radius: 10px;
-    cursor: pointer;
-} */
-
-
-
-
 .page {
     padding: 2rem 0;
     max-width: 640px;
@@ -164,3 +129,68 @@
     transform: translateX(3px);
     color: #6b7280;
   }
+
+/* ── Mobile Responsive ─────────────────────────────────── */
+@media (max-width: 640px) {
+  .page {
+      padding: 1.25rem 1rem;
+      max-width: 100%;
+  }
+
+  .sectionLabel {
+      font-size: 0.65rem;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+  }
+
+  .userCard {
+      gap: 0.75rem;
+      padding: 0.75rem 0.25rem;
+  }
+
+  .userName {
+      font-size: 0.85rem;
+  }
+
+  .userHandle {
+      font-size: 0.74rem;
+  }
+
+  .acceptBtn {
+      font-size: 0.72rem;
+      padding: 0.28rem 0.7rem;
+  }
+}
+
+/* ── Very small screens (≤380px) ───────────────────────── */
+@media (max-width: 380px) {
+  .page {
+      padding: 1rem 0.75rem;
+  }
+
+  .avatar img,
+  .avatarFallback {
+      width: 34px;
+      height: 34px;
+      font-size: 0.72rem;
+  }
+
+  .userCard {
+      gap: 0.6rem;
+      padding: 0.65rem 0.2rem;
+  }
+
+  .userName {
+      font-size: 0.82rem;
+  }
+
+  /* Hide arrow on tiny screens to save space */
+  .arrow {
+      display: none;
+  }
+
+  .acceptBtn {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.6rem;
+  }
+}
