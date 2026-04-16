@@ -38,13 +38,48 @@ export default function Dashboard() {
   const [postContent, setPostContent] = useState("");
 
   const [fileContent, setFileContent] = useState();
+  const [selectedMediaPreview, setSelectedMediaPreview] = useState(null);
 
   const [commentText, setCommentText] = useState("");
+
+  useEffect(() => {
+    return () => {
+      if (selectedMediaPreview) {
+        URL.revokeObjectURL(selectedMediaPreview.url);
+      }
+    };
+  }, [selectedMediaPreview]);
+
+  const handleMediaSelection = (event) => {
+    const selectedFile = event.target.files?.[0];
+
+    if (selectedMediaPreview) {
+      URL.revokeObjectURL(selectedMediaPreview.url);
+    }
+
+    if (!selectedFile) {
+      setFileContent(null);
+      setSelectedMediaPreview(null);
+      return;
+    }
+
+    setFileContent(selectedFile);
+    setSelectedMediaPreview({
+      name: selectedFile.name,
+      type: selectedFile.type,
+      url: URL.createObjectURL(selectedFile),
+      isImage: selectedFile.type.startsWith("image/"),
+    });
+  };
 
   const handleUpload = async () => {
     await dispatch(createPost({file: fileContent, body: postContent}));
     setPostContent("");
     setFileContent(null);
+    if (selectedMediaPreview) {
+      URL.revokeObjectURL(selectedMediaPreview.url);
+    }
+    setSelectedMediaPreview(null);
     dispatch(getAllPosts());
   }
 
@@ -60,7 +95,42 @@ export default function Dashboard() {
           <div className={styles.createPostContainer}>
             <img className={styles.userProfile} src={`${BASE_URL}/${authState?.user?.userId?.profilePicture}`} alt=''/>
 
-            <textarea onChange={(e) => setPostContent(e.target.value)} value={postContent} className={styles.textareaOfContent} placeholder={"What's in your mind?"}name='' id='' ></textarea>
+            <div className={styles.createPostMain}>
+              <textarea onChange={(e) => setPostContent(e.target.value)} value={postContent} className={styles.textareaOfContent} placeholder={"What's in your mind?"}name='' id='' ></textarea>
+
+              {selectedMediaPreview && (
+                <div className={styles.mediaPreviewCard}>
+                  <div className={styles.mediaPreviewHeader}>
+                    <p>Selected media</p>
+                    <button
+                      type='button'
+                      className={styles.mediaPreviewRemove}
+                      onClick={() => {
+                        if (selectedMediaPreview) {
+                          URL.revokeObjectURL(selectedMediaPreview.url);
+                        }
+                        setFileContent(null);
+                        setSelectedMediaPreview(null);
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+
+                  {selectedMediaPreview.isImage ? (
+                    <img
+                      src={selectedMediaPreview.url}
+                      alt={selectedMediaPreview.name}
+                      className={styles.mediaPreviewImage}
+                    />
+                  ) : (
+                    <div className={styles.mediaPreviewFile}>
+                      <p>{selectedMediaPreview.name}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
 
             <div className={styles.inputActions}>
               <label htmlFor='fileUpload'>
@@ -71,7 +141,7 @@ export default function Dashboard() {
                 </div>
               </label>
 
-              <input onChange={(e) => setFileContent(e.target.files[0])} type='file' hidden id='fileUpload' />
+              <input onChange={handleMediaSelection} type='file' hidden id='fileUpload' />
               {postContent.length > 0 &&
               <button onClick={handleUpload} className={styles.uploadButton}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">

@@ -42,6 +42,15 @@
     min-width: 0;
 }
 
+.createPostMain {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    width: 100%;
+    flex: 1;
+    min-width: 0;
+}
+
 .inputActions {
     display: flex;
     flex-direction: column;
@@ -95,6 +104,69 @@
 
 .textareaOfContent::placeholder {
     color: #94a3b8;
+}
+
+.mediaPreviewCard {
+    background: #f8fbff;
+    border: 1px solid #dbeafe;
+    border-radius: 14px;
+    padding: 0.65rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    width: fit-content;
+    max-width: min(100%, 220px);
+}
+
+.mediaPreviewHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+}
+
+.mediaPreviewHeader p {
+    margin: 0;
+    color: #1e3a5f;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.mediaPreviewRemove {
+    border: none;
+    background: transparent;
+    color: #7dafdd;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+}
+
+.mediaPreviewImage {
+    width: 140px;
+    max-width: 100%;
+    height: 88px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    background: #ffffff;
+}
+
+.mediaPreviewFile {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    padding: 0.55rem 0.7rem;
+    border-radius: 10px;
+    background: #ffffff;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.mediaPreviewFile p {
+    margin: 0;
+    color: #334155;
+    font-size: 0.84rem;
+    overflow-wrap: anywhere;
 }
 
 .uploadButton {
@@ -373,13 +445,13 @@
 }
 
 .postCommentContainer > input:focus {
-    border-color: #3b82f6;
+    border-color: #7dafdd;
     background-color: #ffffff;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .postCommnetContainer_commentBtn {
-    background: #3b82f6;
+    background: #7dafdd;
     color: white;
     padding: 0.8rem 1.5rem;
     border-radius: 24px;
