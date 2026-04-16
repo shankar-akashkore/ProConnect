@@ -3,7 +3,7 @@ import styles from "./index.module.css";
 import { useRouter } from 'next/router';
 import { BASE_URL } from '@/config';
 import { useEffect } from 'react';
-import { setTokenThere } from '@/config/redux/reducer/authReducer';
+import { setTokenThere, setTokenIsNotThere } from '@/config/redux/reducer/authReducer';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { sendConnectionRequest } from '@/config/redux/action/authAction';
@@ -20,11 +20,16 @@ function DashboardLayout({ children, showExtraSection = true, hideExtraSectionOn
   const authState = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (localStorage.getItem('token') === null) {
-      router.push("/login");
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      dispatch(setTokenIsNotThere());
+      router.replace("/login");
+      return;
     }
+
     dispatch(setTokenThere());
-  }, []);
+  }, [dispatch, router]);
 
   return (
     <div>
@@ -78,7 +83,9 @@ function DashboardLayout({ children, showExtraSection = true, hideExtraSectionOn
           })} */}
           <h3 className={styles.topProfileHeading}>Top Profiles</h3>
 
-          {authState.all_profiles_fetched && authState.all_users.map((profile) => (
+          {authState.all_profiles_fetched && authState.all_users
+            .filter((profile) => profile?.userId)
+            .map((profile) => (
             <div key={profile._id} 
             className={styles.extraContainer_profile}
             onClick={() => router.push(`/profiles/${profile.userId.username}`)}

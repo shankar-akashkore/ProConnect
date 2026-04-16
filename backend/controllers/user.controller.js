@@ -214,8 +214,9 @@ export const getAllUserProfiles = async (req, res) => {
     try {
 
         const profiles = await Profile.find().populate('userId', 'name username email profilePicture');
+        const validProfiles = profiles.filter((profile) => profile.userId);
 
-        return res.json({ profiles });
+        return res.json({ profiles: validProfiles });
     } catch (error) {
         return res.status(500).json({ message: "Something went wrong" });
     }

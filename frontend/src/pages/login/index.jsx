@@ -22,8 +22,10 @@ function LoginComponent() {
   const [password, setPassword] = useState("");
   const [toast, setToast] = useState({ open: false, variant: "info", title: "", message: "" });
   const toastTimerRef = useRef(null);
+  const authModeTimerRef = useRef(null);
   const previousLoadingRef = useRef(authState.isLoading);
   const previousLoggedInRef = useRef(authState.loggedIn);
+  const authRequestTypeRef = useRef(null);
 
   useEffect(() => {
     if (authState.loggedIn) {
@@ -40,16 +42,14 @@ function LoginComponent() {
       if (toastTimerRef.current) {
         clearTimeout(toastTimerRef.current);
       }
+
+      if (authModeTimerRef.current) {
+        clearTimeout(authModeTimerRef.current);
+      }
     };
   }, []);
 
   useEffect(() => {
-    if (!userLoginMethod) {
-      previousLoadingRef.current = authState.isLoading;
-      previousLoggedInRef.current = authState.loggedIn;
-      return;
-    }
-
     const showToast = (variant, title, message, duration = 2600) => {
       if (toastTimerRef.current) {
         clearTimeout(toastTimerRef.current);
@@ -66,27 +66,58 @@ function LoginComponent() {
 
     const wasLoading = previousLoadingRef.current;
     const wasLoggedIn = previousLoggedInRef.current;
+    const requestType = authRequestTypeRef.current;
 
-    if (!wasLoading && authState.isLoading) {
+    if (!wasLoading && authState.isLoading && requestType === "login") {
       showToast("info", "Signing you in", "Checking your credentials and opening your workspace.", 0);
-    } else if (wasLoading && !authState.isLoading && authState.loggedIn && !wasLoggedIn) {
+    } else if (!wasLoading && authState.isLoading && requestType === "register") {
+      showToast("info", "Creating your account", "Setting up your profile and saving your details.", 0);
+    } else if (wasLoading && !authState.isLoading && authState.loggedIn && !wasLoggedIn && requestType === "login") {
       showToast("success", "Welcome back", "Login successful. Redirecting to your dashboard.");
-    } else if (wasLoading && !authState.isLoading && authState.isError && authState.message) {
+      authRequestTypeRef.current = null;
+    } else if (wasLoading && !authState.isLoading && authState.isSuccess && requestType === "register") {
+      showToast("success", "Account created", "Your sign-up was successful. Please sign in to continue.");
+      authModeTimerRef.current = setTimeout(() => {
+        setPassword("");
+        setUserLoginMethod(true);
+      }, 900);
+      authRequestTypeRef.current = null;
+    } else if (wasLoading && !authState.isLoading && authState.isError && authState.message && requestType === "login") {
       showToast("error", "Login failed", authState.message);
+      authRequestTypeRef.current = null;
+    } else if (wasLoading && !authState.isLoading && authState.isError && authState.message && requestType === "register") {
+      showToast("error", "Sign-up failed", authState.message);
+      authRequestTypeRef.current = null;
     }
 
     previousLoadingRef.current = authState.isLoading;
     previousLoggedInRef.current = authState.loggedIn;
-  }, [authState.isError, authState.isLoading, authState.loggedIn, authState.message, userLoginMethod]);
+  }, [authState.isError, authState.isLoading, authState.isSuccess, authState.loggedIn, authState.message]);
 
   const handleRegister = () => {
     console.log("HarHari");
+    authRequestTypeRef.current = "register";
     dispatch(registerUser({ username, name, email, password }))
   }
 
   const handleLogin = () => {
     console.log("Login Function is called");
+    authRequestTypeRef.current = "login";
     dispatch(loginUser({ email, password }));
+  }
+
+  const handleAuthModeChange = () => {
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+    }
+
+    if (authModeTimerRef.current) {
+      clearTimeout(authModeTimerRef.current);
+    }
+
+    authRequestTypeRef.current = null;
+    setToast((currentToast) => ({ ...currentToast, open: false }));
+    setUserLoginMethod((currentValue) => !currentValue);
   }
 
 
@@ -132,9 +163,7 @@ function LoginComponent() {
           <div className={styles.cardContainer_right}>
 
             {userLoginMethod ? <p>Don&apos;t Have an Account?</p> : <p>Already Have an Account?</p>}
-            <div onClick={() => {
-              setUserLoginMethod(!userLoginMethod)
-            }}
+            <div onClick={handleAuthModeChange}
               style={{ color: "black", backgroundColor: "white", textAlign: "center", marginTop: "0.8rem" }}
               className={styles.buttonWithOutline}>
               <p>{userLoginMethod ? "Sign Up" : "Sign In"}</p>

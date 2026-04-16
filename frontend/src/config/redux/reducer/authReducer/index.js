@@ -42,6 +42,8 @@ const authSlice = createSlice({
         builder
             .addCase(loginUser.pending, (state) => {
                 state.isLoading = true;
+                state.isError = false;
+                state.isSuccess = false;
                 state.message = "knocking the door......"
             })
 
@@ -56,11 +58,15 @@ const authSlice = createSlice({
             .addCase(loginUser.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
+                state.isSuccess = false;
+                state.loggedIn = false;
                 state.message = action.payload?.message || "Something went wrong";
             })
 
             .addCase(registerUser.pending, (state) => {
                 state.isLoading = true;
+                state.isError = false;
+                state.isSuccess = false;
                 state.message = "Registering you.........."
             })
 
@@ -68,13 +74,15 @@ const authSlice = createSlice({
                 state.isLoading = false;
                 state.isError = false;
                 state.isSuccess = true;
-                state.loggedIn = true;
+                state.loggedIn = false;
+                state.isTokenThere = false;
                 state.message = "Registration is Successful, Please Login to continue";
             })
 
             .addCase(registerUser.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
+                state.isSuccess = false;
                 state.message = action.payload?.message || "Something went wrong";
             })
 
