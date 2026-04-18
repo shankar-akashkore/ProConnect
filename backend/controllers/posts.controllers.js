@@ -44,8 +44,19 @@ export const createPost = async (req, res) => {
 export const getAllPosts = async(req, res) => {
     try {
  
-        const posts = await Post.find().populate('userId' ,'name username email profilePicture')
-        return res.json({ posts })
+        const posts = await Post.find().populate('userId' ,'name username email profilePicture');
+        const postsWithCommentCounts = await Promise.all(
+            posts.map(async (post) => {
+                const commentCount = await Comment.countDocuments({ postId: post._id });
+
+                return {
+                    ...post.toObject(),
+                    commentCount,
+                };
+            })
+        );
+
+        return res.json({ posts: postsWithCommentCounts })
 
     } catch(error) {
         return res.status(500).json({message: error.message })
