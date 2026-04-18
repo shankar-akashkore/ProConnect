@@ -321,6 +321,16 @@
     width: 1.3em;
 }
 
+.singleOption_optionContainerActive {
+    color: #7dafdd;
+    background-color: #fdfdfd;
+}
+
+.singleOption_optionContainerActive:hover {
+    color: #73b2ed;
+    background-color: #f5f5f5;
+}
+
 .commentsContainer {
     position: fixed;
     width: 100vw;

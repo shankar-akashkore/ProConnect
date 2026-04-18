@@ -43,15 +43,21 @@ export const createPost = async (req, res) => {
 
 export const getAllPosts = async(req, res) => {
     try {
- 
+        const { token } = req.query;
+        const user = token ? await User.findOne({ token }).select("_id") : null;
         const posts = await Post.find().populate('userId' ,'name username email profilePicture');
         const postsWithCommentCounts = await Promise.all(
             posts.map(async (post) => {
                 const commentCount = await Comment.countDocuments({ postId: post._id });
+                const likedBy = Array.isArray(post.likedBy) ? post.likedBy : [];
+                const isLiked = user
+                    ? likedBy.some((likedUserId) => likedUserId.toString() === user._id.toString())
+                    : false;
 
                 return {
                     ...post.toObject(),
                     commentCount,
+                    isLiked,
                 };
             })
         );
@@ -156,9 +162,14 @@ export const delete_comment_of_user = async (req, res) => {
 
 export const increment_likes = async (req, res) => {
 
-    const { post_id } = req.body;
+    const { token, post_id } = req.body;
 
     try{
+        const user = await User.findOne({ token }).select("_id");
+
+        if(!user) {
+            return res.status(404).json({ message: "User not found" })
+        }
 
         const post = await Post.findOne({ _id: post_id });
 
@@ -166,11 +177,31 @@ export const increment_likes = async (req, res) => {
             return res.status(404).json({ message: "Post not found" })
         }
 
-        post.likes = post.likes + 1;
+        if(!Array.isArray(post.likedBy)) {
+            post.likedBy = [];
+        }
+
+        const alreadyLiked = post.likedBy.some(
+            (likedUserId) => likedUserId.toString() === user._id.toString()
+        );
+
+        if(alreadyLiked) {
+            post.likedBy = post.likedBy.filter(
+                (likedUserId) => likedUserId.toString() !== user._id.toString()
+            );
+            post.likes = Math.max(0, post.likes - 1);
+        } else {
+            post.likedBy.push(user._id);
+            post.likes = post.likes + 1;
+        }
 
         await post.save();
 
-        return res.json({ message: "Likes incremented" })
+        return res.json({
+            message: alreadyLiked ? "Like removed" : "Post liked",
+            likes: post.likes,
+            isLiked: !alreadyLiked,
+        })
 
     } catch(error) {
         return res.status(500).json({ message: error.message })

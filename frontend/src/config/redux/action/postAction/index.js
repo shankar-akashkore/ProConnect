@@ -5,7 +5,11 @@ export const getAllPosts = createAsyncThunk(
     "post/getAllPosts",
     async(_, thunkAPI) => {
         try{
-            const response = await clientServer.get('/posts')
+            const response = await clientServer.get('/posts', {
+                params: {
+                    token: localStorage.getItem("token"),
+                }
+            })
 
             return thunkAPI.fulfillWithValue(response.data);
 
@@ -71,6 +75,7 @@ export const incrementPostLike = createAsyncThunk(
         try {
 
             const response = await clientServer.post('/increment_post_like', {
+                token: localStorage.getItem("token"),
                 post_id: post.post_id,
             })
 
