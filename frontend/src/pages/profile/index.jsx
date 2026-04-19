@@ -13,6 +13,7 @@ export default function profile() {
     const postReducer = useSelector((state) => state.post);
 
     const [userProfile, setUserProfile] = useState({});
+    const [initialProfile, setInitialProfile] = useState(null);
     const [userPost, setUserPost] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [inputData, setInputData] = useState({ company: '', position: '', years: '' });
@@ -31,13 +32,33 @@ export default function profile() {
 
     useEffect(() => {
         if (authState.user != undefined) {
-            setUserProfile(authState.user)
+            const normalizedProfile = {
+                ...authState.user,
+                postWork: Array.isArray(authState.user?.postWork) ? authState.user.postWork : [],
+            };
+
+            setUserProfile(normalizedProfile)
+            setInitialProfile(normalizedProfile);
             let post = postReducer.posts.filter((post) => {
-                return post.userId.username === authState.user.userId.username;
+                return post?.userId?.username === authState.user?.userId?.username;
             })
             setUserPost(post);
         }
     }, [authState.user, postReducer.posts])
+
+    const hasProfileChanges = !!initialProfile && JSON.stringify({
+        name: userProfile?.userId?.name || "",
+        bio: userProfile?.bio || "",
+        currentPost: userProfile?.currentPost || "",
+        education: userProfile?.education || "",
+        postWork: userProfile?.postWork || [],
+    }) !== JSON.stringify({
+        name: initialProfile?.userId?.name || "",
+        bio: initialProfile?.bio || "",
+        currentPost: initialProfile?.currentPost || "",
+        education: initialProfile?.education || "",
+        postWork: initialProfile?.postWork || [],
+    });
 
     const updateProfilePicture = async (file) => {
         const formData = new FormData();
@@ -106,7 +127,7 @@ export default function profile() {
                                 rows={Math.max(2, Math.ceil((userProfile.bio?.length || 0) / 80))}
                                 placeholder="Short bio..."
                             />
-                            {userProfile != authState.user &&
+                            {hasProfileChanges &&
                                 <button className={styles.saveBtn} onClick={updateProfileData}>Save changes</button>
                             }
                         </div>
@@ -135,7 +156,7 @@ export default function profile() {
                             {/* Work */}
                             <div className={styles.col}>
                                 <p className={styles.colLabel}>Work</p>
-                                {userProfile.postWork.map((work, index) => (
+                                {(userProfile.postWork || []).map((work, index) => (
                                     <div key={index} className={styles.workRow}>
                                         <div className={styles.workDot} />
                                         <div>
@@ -167,7 +188,7 @@ export default function profile() {
                             <div className={styles.modalActions}>
                                 <button className={styles.cancelBtn} onClick={() => setIsModalOpen(false)}>Cancel</button>
                                 <button className={styles.confirmBtn} onClick={() => {
-                                    setUserProfile({ ...userProfile, postWork: [...userProfile.postWork, inputData] });
+                                    setUserProfile({ ...userProfile, postWork: [...(userProfile.postWork || []), inputData] });
                                     setIsModalOpen(false);
                                 }}>Add</button>
                             </div>
