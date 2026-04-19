@@ -13,6 +13,33 @@
     min-width: 0;
 }
 
+.statusState {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 2rem;
+}
+
+.statusState h3,
+.statusState p {
+    margin: 0;
+}
+
+.statusState p {
+    color: #64748b;
+}
+
+.retryButton {
+    border: none;
+    border-radius: 10px;
+    background: #458ccebb;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0.7rem 1rem;
+}
+
 .createPostContainer {
     display: flex;
     padding: 1.5rem;

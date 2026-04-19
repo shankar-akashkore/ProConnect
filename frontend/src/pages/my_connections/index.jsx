@@ -176,15 +176,15 @@ export default function MyConnectionPage() {
   }, []);
 
   const pending = authState.connectionRequest?.filter(
-    (c) => c.status_accepted === null
+    (c) => c?.status_accepted === null && c?.userId
   ) ?? [];
 
   const receivedConnected = authState.connectionRequest?.filter(
-    (c) => c.status_accepted === true
+    (c) => c?.status_accepted === true && c?.userId
   ) ?? [];
 
   const sentConnected = authState.connections?.filter(
-    (c) => c.status_accepted === true
+    (c) => c?.status_accepted === true && c?.connectionId
   ) ?? [];
 
   return (
@@ -201,10 +201,13 @@ export default function MyConnectionPage() {
               {pending.map((user, i) => (
                 <UserRow
                   key={i}
-                  name={user.userId.name}
-                  username={user.userId.username}
-                  picturePath={user.userId.profilePicture}
-                  onClick={() => router.push(`/view_profile/${user.userId.username}`)}
+                  name={user.userId?.name}
+                  username={user.userId?.username}
+                  picturePath={user.userId?.profilePicture}
+                  onClick={() => {
+                    if (!user.userId?.username) return;
+                    router.push(`/view_profile/${user.userId.username}`);
+                  }}
                   action={
                     <button
                       className={styles.acceptBtn}
@@ -234,19 +237,25 @@ export default function MyConnectionPage() {
               {receivedConnected.map((user, i) => (
                 <UserRow
                   key={`recv-${i}`}
-                  name={user.userId.name}
-                  username={user.userId.username}
-                  picturePath={user.userId.profilePicture}
-                  onClick={() => router.push(`/view_profile/${user.userId.username}`)}
+                  name={user.userId?.name}
+                  username={user.userId?.username}
+                  picturePath={user.userId?.profilePicture}
+                  onClick={() => {
+                    if (!user.userId?.username) return;
+                    router.push(`/view_profile/${user.userId.username}`);
+                  }}
                 />
               ))}
               {sentConnected.map((user, i) => (
                 <UserRow
                   key={`sent-${i}`}
-                  name={user.connectionId.name}
-                  username={user.connectionId.username}
-                  picturePath={user.connectionId.profilePicture}
-                  onClick={() => router.push(`/view_profile/${user.connectionId.username}`)}
+                  name={user.connectionId?.name}
+                  username={user.connectionId?.username}
+                  picturePath={user.connectionId?.profilePicture}
+                  onClick={() => {
+                    if (!user.connectionId?.username) return;
+                    router.push(`/view_profile/${user.connectionId.username}`);
+                  }}
                 />
               ))}
             </div>

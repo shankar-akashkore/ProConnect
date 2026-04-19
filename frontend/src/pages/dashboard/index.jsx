@@ -33,7 +33,7 @@ export default function Dashboard() {
     if(!authState.all_profiles_fetched){
       dispatch(getAllUsers());
   }
-  }, [authState.isTokenThere]);
+  }, [authState.isTokenThere, authState.all_profiles_fetched, dispatch]);
 
   const [postContent, setPostContent] = useState("");
 
@@ -314,11 +314,52 @@ export default function Dashboard() {
     </UserLayout>
     )
   } else {
+    const hasNoToken = !authState.isTokenThere;
+    const isWaitingForProfile = authState.isTokenThere && authState.isLoading && !authState.user;
+    const hasProfileLoadFailed = authState.isTokenThere && authState.isError && !authState.user;
+
     return (
     <UserLayout>
 
       <DashboardLayout>
-        <h3>Loading.......</h3>
+        <div className={styles.statusState}>
+          {hasNoToken && (
+            <>
+              <h3>You are not logged in.</h3>
+              <p>Please log in to open your dashboard.</p>
+              <button
+                className={styles.retryButton}
+                onClick={() => {
+                  router.push("/login");
+                }}
+              >
+                Go to Login
+              </button>
+            </>
+          )}
+
+          {isWaitingForProfile && <h3>Loading your dashboard...</h3>}
+
+          {hasProfileLoadFailed && (
+            <>
+              <h3>We could not load your dashboard.</h3>
+              <p>{authState.message || "Your session may have expired. Please log in again."}</p>
+              <button
+                className={styles.retryButton}
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  router.push("/login");
+                }}
+              >
+                Go to Login
+              </button>
+            </>
+          )}
+
+          {!hasNoToken && !isWaitingForProfile && !hasProfileLoadFailed && (
+            <h3>Checking your session...</h3>
+          )}
+        </div>
       </DashboardLayout>
 
     </UserLayout>

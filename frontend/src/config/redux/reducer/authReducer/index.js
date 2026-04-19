@@ -93,6 +93,20 @@ const authSlice = createSlice({
                 state.user = action.payload?.profile
             })
 
+            .addCase(getAboutUser.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+                state.profileFetched = false;
+            })
+
+            .addCase(getAboutUser.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.profileFetched = false;
+                state.user = undefined;
+                state.message = action.payload?.message || "Unable to load your profile";
+            })
+
             .addCase(getAllUsers.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isError = false;
