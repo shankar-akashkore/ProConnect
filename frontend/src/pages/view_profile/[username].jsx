@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSearchParams } from 'next/navigation';
 import { BASE_URL, clientServer } from '@/config';
 import UserLayout from '@/layout/UserLayout';
 import DashboardLayout from '@/layout/DashboardLayout';
@@ -14,9 +13,6 @@ import { getConnectionsRequest, getMyConnectionRequests, sendConnectionRequest }
 
 
 export default function ViewProfile({ userProfile }) {
-
-  const searchParams = useSearchParams();
-
   const router = useRouter();
   // const postReducer = useSelector((state) => state.postReducer);
   const postReducer = useSelector((state) => state.post);
@@ -24,6 +20,8 @@ export default function ViewProfile({ userProfile }) {
   const dispatch = useDispatch();
 
   const authState = useSelector((state) => state.auth);
+  const profileUser = userProfile?.userId;
+  const workHistory = Array.isArray(userProfile?.postWork) ? userProfile.postWork : [];
 
   const [userPost, setUserPost] = useState([]);
 
@@ -39,27 +37,31 @@ export default function ViewProfile({ userProfile }) {
 
   useEffect(() => {
     let post = postReducer.posts.filter((post) => {
-      return post.userId.username === router.query.username;
+      return post?.userId?.username === router.query.username;
     })
     setUserPost(post);
-  }, [postReducer.posts])
+  }, [postReducer.posts, router.query.username])
 
 
   useEffect(() => {
-    if (authState.connections?.some(user => user.connectionId._id === userProfile.userId._id)) {
+    if (!profileUser?._id) {
+      return;
+    }
+
+    if (authState.connections?.some(user => user?.connectionId?._id === profileUser._id)) {
       setIsCurrentUserInConnections(true);
-      if (authState.connections.find(user => user.connectionId._id === userProfile.userId._id).status_accepted === true) {
+      if (authState.connections.find(user => user?.connectionId?._id === profileUser._id)?.status_accepted === true) {
         setIsConnectionNull(false);
       }
     }
 
-    if (authState.connectionRequest?.some(user => user.userId._id === userProfile.userId._id)) {
+    if (authState.connectionRequest?.some(user => user?.userId?._id === profileUser._id)) {
       setIsCurrentUserInConnections(true);
-      if (authState.connectionRequest.find(user => user.userId._id === userProfile.userId._id).status_accepted === true) {
+      if (authState.connectionRequest.find(user => user?.userId?._id === profileUser._id)?.status_accepted === true) {
         setIsConnectionNull(false);
       }
     }
-  }, [authState.connections, authState.connectionRequest]);
+  }, [authState.connections, authState.connectionRequest, profileUser?._id]);
 
 
   useEffect(() => {
@@ -74,15 +76,15 @@ export default function ViewProfile({ userProfile }) {
       <DashboardLayout>
         <div className={styles.container}>
           <div className={styles.backDropContainer}>
-            <img className={styles.backDrop} src={`${BASE_URL}/${userProfile.userId.profilePicture}`} />
+            <img className={styles.backDrop} src={`${BASE_URL}/${profileUser?.profilePicture || ""}`} alt={profileUser?.name || "Profile"} />
           </div>
 
           <div className={styles.profileContainer_details}>
-            <div style={{ display: "flex", gap: "0.7rem" }}>
-              <div style={{ flex: "0.8" }}>
-                <div style={{ display: "flex", width: "fit-content", alignItems: "center", gap: "1.2rem" }}>
-                  <h2>{userProfile.userId.name}</h2>
-                  <p style={{ color: "grey" }}>@{userProfile.userId.username}</p>
+            <div className={styles.profileSummary}>
+              <div className={styles.profileMain}>
+                <div className={styles.profileHeading}>
+                  <h2>{profileUser?.name}</h2>
+                  <p style={{ color: "grey" }}>@{profileUser?.username}</p>
 
                 </div>
 
@@ -91,13 +93,15 @@ export default function ViewProfile({ userProfile }) {
                   <button className={styles.connectedButton}>{isConnectionNull ? "Pending" : "Connected"}</button>
                   :
                   <button onClick={() => {
-                    dispatch(sendConnectionRequest({ token: localStorage.getItem("token"), user_id: userProfile.userId._id }));
+                    if (!profileUser?._id) return;
+                    dispatch(sendConnectionRequest({ token: localStorage.getItem("token"), user_id: profileUser._id }));
                   }}
                     className={styles.connectBtn}>Connect</button>
                 }
 
                 <div onClick={async () => {
-                  const response = await clientServer.get(`/user/download_resume?id=${userProfile.userId._id}`);
+                  if (!profileUser?._id) return;
+                  const response = await clientServer.get(`/user/download_resume?id=${profileUser._id}`);
                   window.open(`${BASE_URL}/${response.data.message}`, "_blank");
                 }}
                 style={{cursor: "pointer"}}>
@@ -108,14 +112,14 @@ export default function ViewProfile({ userProfile }) {
                 </div>
                 </div>
 
-                <div>
-                  <p>{userProfile.bio}</p>
+                <div className={styles.profileBio}>
+                  <p>{userProfile?.bio}</p>
                 </div>
 
 
               </div>
-              <div style={{ flex: "0.2" }}>
-                <h3>Recent Activity</h3>
+              <div className={styles.recentActivity}>
+                <h3 className={styles.recentActivityTitle}>Recent Activity</h3>
                 {userPost.map((post) => {
                   return (
                     <div key={post._id} className={styles.postCard}>
@@ -142,7 +146,7 @@ export default function ViewProfile({ userProfile }) {
 
             <div className={styles.workHistoryContainer}>
               {
-                userProfile.postWork.map((work, index) => {
+                workHistory.map((work, index) => {
                   return (
                     <div key={index} className={styles.workHistoryCard}>
                       <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem"}}>{work.company} - {work.position}</p>
@@ -164,17 +168,29 @@ export default function ViewProfile({ userProfile }) {
 }
 
 export async function getServerSideProps(context) {
+  try {
+    const request = await clientServer.get("/user/get_profile_based_on_username", {
+      params: {
+        username: context.query.username
+      }
+    });
 
-  console.log(context.query.username);
-
-  const request = await clientServer.get("/user/get_profile_based_on_username", {
-    params: {
-      username: context.query.username
+    if (!request.data?.profile?.userId) {
+      return { notFound: true };
     }
-  })
 
-  const response = await request.data;
-  console.log(response);
+    return { props: { userProfile: request.data.profile } };
+  } catch (error) {
+    const statusCode = error.response?.status;
 
-  return { props: { userProfile: request.data.profile } }
+    if (statusCode === 404) {
+      return { notFound: true };
+    }
+
+    return {
+      props: {
+        userProfile: null,
+      },
+    };
+  }
 }

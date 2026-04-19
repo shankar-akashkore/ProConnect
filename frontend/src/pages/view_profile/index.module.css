@@ -126,6 +126,45 @@
     text-align: center;
 }
 
+.profileSummary {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.profileMain {
+    width: 100%;
+}
+
+.profileHeading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.recentActivity {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.recentActivityTitle {
+    margin: 0;
+    text-align: center;
+}
+
+.profileBio {
+    margin-top: 0.85rem;
+}
+
+.profileBio p {
+    margin: 0;
+}
+
 /* Cards */
 .card {
     display: flex;
@@ -207,10 +246,36 @@
         text-align: left;
     }
 
+    .profileSummary {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+
+    .profileMain {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    .profileHeading {
+        flex-direction: row;
+        align-items: center;
+        width: fit-content;
+        gap: 1.2rem;
+    }
+
+    .recentActivity {
+        flex: 0 0 240px;
+        align-items: center;
+        text-align: center;
+        padding-top: 0.35rem;
+    }
+
     .card {
         flex-direction: row;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
     }
 
     .workHistoryContainer {
